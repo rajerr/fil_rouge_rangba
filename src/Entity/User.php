@@ -2,9 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -26,12 +30,19 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
      */
     private $username;
 
     /**
+     */
+    protected $roles = [];
+
+    /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     * 
      */
     private $password;
 
@@ -42,21 +53,29 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * 
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * 
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * 
      */
     private $email;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotBlank
+     * 
      */
     private $statut;
 
@@ -66,7 +85,9 @@ class User implements UserInterface
     private $profile;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * 
      */
     private $telephone;
 
@@ -145,7 +166,10 @@ class User implements UserInterface
 
     public function getAvatar()
     {
-        return $this->avatar;
+        $data = stream_get_contents($this->avatar);
+        fclose($this->avatar);
+
+       return base64_encode($data);
     }
 
     public function setAvatar($avatar): self
