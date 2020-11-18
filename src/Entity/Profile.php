@@ -2,15 +2,33 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ProfileRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProfileRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=ProfileRepository::class)
+ * @ApiResource(
+ * attributes={"security"="is_granted('ROLE_ADMIN')","pagination_items_per_page"=2},
+    *     collectionOperations={
+    *         "post"={ "security_message"="Seul un admin peut faire cette action.","path"="admin/profiles",},
+    *         "get"={"security_message"="Vous n'avez pas acces a cette ressource.","path"="admin/profiles",
+    *         "normalization_context"={"groups"={"profil_read"}}
+    *         }
+    *     },
+    *     
+    *     itemOperations={
+    *         "get"={"security_message"="Vous n'avez pas acces a cette ressource.","path"="admin/profiles/{id}", "normalization_context"={"groups"={"profil_detail_read"}}}, 
+    *         "delete"={"security_message"="Seul un admin peut faire cette action.","path"="admin/profiles/{id}",},
+    *         "put"={"security_message"="Seul un admin peut faire cette action.","path"="admin/profiles/{id}",},
+    *  }
+ * )
  */
 class Profile
 {
@@ -18,16 +36,22 @@ class Profile
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"profil_read","profil_detail_read"})
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "libelle can't be null")
+     * @Groups({"profil_read","profil_detail_read"})
      */
     private $libelle;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="profile")
+     * @Groups({"profil_detail_read"})
+     * 
      */
     private $users;
 

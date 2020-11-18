@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 /**
@@ -15,9 +15,34 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="profile", type="string")
  * @ORM\DiscriminatorMap({"ADMIN" = "User", "APPRENANT" = "Apprenant", "FORMATEUR" = "Formateur", "CM" = "Cm"})
- * ApiResource(
- * 
- * )
+ * @ApiResource(
+ * attributes={ "security"="is_granted('ROLE_ADMIN')","pagination_items_per_page"=5},
+*     collectionOperations={
+*         "post"={
+*          "security_message"="Seul un admin peut faire cette action.",
+*          "path"="admin/users",
+*           },
+*          "get"={
+*           "security_message"="Vous n'avez pas acces a cette ressource.",
+*           "path"="admin/users",
+*           "normalization_context"={"groups"={"user_read"}}
+*           }
+*     },
+*     
+*     itemOperations={
+*         "get"={
+*            "security_message"="Seul un admin peut faire cette action.",
+*            "path"="admin/users/{id}", 
+*            "normalization_context"={"groups"={"user_details_read"}}
+*            }, 
+*         "delete"={
+*                   "security_message"="Seul un admin peut faire cette action.",
+*                   "path"="admin/users/{id}"},
+*         "put"={"security_post_denormalize"="is_granted('ROLE_ADMIN')",
+*                "security_message"="Seul un admin peut faire cette action.",
+*                "path"="admin/users/{id}"}
+ *}
+ *  )
  */
 class User implements UserInterface
 {
@@ -25,14 +50,18 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user_read","user_details_read"})
+     * 
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message = "username can't be null")
+     * @Groups({"user_read","user_details_read"})
+     * 
      */
-    private $username;
+    protected $username;
 
     /**
      */
@@ -41,55 +70,62 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message = "password can't be null")
      * 
      */
-    private $password;
+    protected $password;
 
     /**
      * @ORM\Column(type="blob")
+     * @Assert\NotBlank(message = "avatar can't be null")
+     * @Groups({"user_details_read"})
      */
-    private $avatar;
+    protected $avatar;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * 
+     * @Assert\NotBlank(message = "nom can't be null")
+     * @Groups({"user_read","user_details_read"})
      */
-    private $nom;
+    protected $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * 
+     * @Assert\NotBlank(message = "prenom can't be null")
+     * @Groups({"user_read","user_details_read"})
      */
-    private $prenom;
+    protected $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * 
+     * @Assert\NotBlank(message = "Email can't be null")
+     * @Assert\Email(
+     *  message = "Email '{{ value }}' is not valid!."
+     *)
+     *@Groups({"user_details_read", "user_read"})
      */
-    private $email;
+    protected $email;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Assert\NotBlank
+     * @Groups({"user_details_read"})
      * 
      */
-    private $statut;
+    protected $statut;
 
     /**
      * @ORM\ManyToOne(targetEntity=Profile::class, inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"user_details_read"})
      */
-    private $profile;
+    protected $profile;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * 
+     * @Assert\NotBlank(message = "telephone can't be null")
+     * @Groups({"user_read","user_details_read"})
      */
-    private $telephone;
+    protected $telephone;
 
     public function getId(): ?int
     {
@@ -120,7 +156,7 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_' . $this->profile->getLibelle();
 
         return array_unique($roles);
     }
