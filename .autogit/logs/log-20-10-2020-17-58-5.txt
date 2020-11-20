@@ -1,0 +1,61 @@
+-------------------- Auto-Git Log --------------------
+		Fri Nov 20 2020 17:58:05 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* .env
+* .gitignore
+* composer.json
+* composer.lock
+* config/bundles.php
+* config/services.yaml
+* src/DataFixtures/UserFixtures.php
+* src/Entity/Apprenant.php
+* src/Entity/Cm.php
+* src/Entity/Formateur.php
+* src/Entity/Profile.php
+* src/Entity/User.php
+* symfony.lock
+
+
+Created files:
+* .autogit/autogit.json
+* .env.test
+* bin/phpunit
+* config/packages/dev/swiftmailer.yaml
+* config/packages/swiftmailer.yaml
+* config/packages/test/swiftmailer.yaml
+* migrations/Version20201118113435.php
+* migrations/Version20201118144527.php
+* phpunit.xml.dist
+* src/Controller/AdminController.php
+* src/Controller/ApprenantController.php
+* src/Controller/CmController.php
+* src/Controller/FormateurController.php
+* src/Controller/UserController.php
+* src/DataPersister/ProfileDataPersister.php
+* src/Entity/Admin.php
+* src/Entity/ProfileSortie.php
+* src/Repository/AdminRepository.php
+* src/Repository/ProfileSortieRepository.php
+* src/Service/ServiceAdd.php
+* src/Service/ServiceSendMail.php
+* templates/admin/index.html.twig
+* templates/apprenant/index.html.twig
+* templates/cm/index.html.twig
+* templates/formateur/index.html.twig
+* templates/profile/index.html.twig
+* templates/user/index.html.twig
+* tests/Unit/AdminTest.php
+* tests/Unit/ApprenantTest.php
+* tests/Unit/CmTest.php
+* tests/Unit/FormateurTest.php
+* tests/Unit/ProfileTest.php
+* tests/Unit/UserTest.php
+* tests/bootstrap.php
+
+
+Deleted files:
+
+
+Renamed files:
