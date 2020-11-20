@@ -4,21 +4,24 @@ namespace App\Entity;
 
 use App\Repository\CmRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 
 /**
  * @ORM\Entity(repositoryClass=CmRepository::class)
+ * @ApiFilter(BooleanFilter::class, properties={"statut"=true})
  * @ApiResource(
- *   attributes={ "security"="is_granted('ROLE_ADMIN')","pagination_items_per_page"=2},
+ *   attributes={ "security"="is_granted('ROLE_ADMIN')","pagination_items_per_page"=10},
 *     collectionOperations={
 *         "post"={
 *          "security_message"="Seul un admin peut faire cette action.",
-*          "path"="admin/cm",
+*          "path"="admin/cms",
 *           },
 *          "get"={
 *           "security_message"="Vous n'avez pas acces a cette ressource.",
-*           "path"="admin/cm",
+*           "path"="admin/cms",
 *           "normalization_context"={"groups"={"user_read"}}
 *           }
 *     },
@@ -26,15 +29,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 *     itemOperations={
 *         "get"={
 *            "security_message"="Seul un admin peut faire cette action.",
-*            "path"="admin/cm/{id}", 
+*            "path"="admin/cms/{id}", 
 *            "normalization_context"={"groups"={"user_details_read"}}
 *            }, 
-*         "delete"={
-*                   "security_message"="Seul un admin peut faire cette action.",
-*                   "path"="admin/cm/{id}"},
+*         "archivage"={
+*                "method"="delete",
+*                "security_message"="Seul un admin peut faire cette action.",
+*                "path"="admin/cms/{id}"},
 *         "put"={"security_post_denormalize"="is_granted('ROLE_ADMIN')",
 *                "security_message"="Seul un admin peut faire cette action.",
-*                "path"="admin/cm/{id}"}
+*                "path"="admin/cms/{id}"}
  *}
  * )
  */

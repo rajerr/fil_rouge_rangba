@@ -4,13 +4,16 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ApprenantRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 
 /**
  * @ORM\Entity(repositoryClass=ApprenantRepository::class)
+ * @ApiFilter(BooleanFilter::class, properties={"statut"=true})
  * @ApiResource(
- * attributes={ "security"="is_granted('ROLE_ADMIN')" OR "is_granted('ROLE_FORMATEUR')", "pagination_items_per_page"=2},
+ * attributes={ "security"="is_granted('ROLE_ADMIN')" , "pagination_items_per_page"=2},
 *     collectionOperations={
 *         "post"={
 *          "security_message"="Vous nêtes pas autorisé à effectuer cette action.",
@@ -29,10 +32,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 *            "path"="admin/apprenants/{id}", 
 *            "normalization_context"={"groups"={"user_details_read"}}
 *            }, 
-*         "delete"={
-*                   "security_message"="Vous nêtes pas autorisé à effectuer cette action.",
-*                   "path"="admin/apprenants/{id}"},
-*         "put"={"security_post_denormalize"="is_granted('ROLE_ADMIN')" OR "is_granted('ROLE_FORMATEUR'),
+*         "archivage"={
+*                "method"="delete",
+*                "security_message"="Vous nêtes pas autorisé à effectuer cette action.",
+*                "path"="admin/apprenants/{id}"},
+*         "put"={"security_post_denormalize"="is_granted('ROLE_ADMIN')",
 *                "security_message"="Vous nêtes pas autorisé à effectuer cette action.",
 *                "path"="admin/apprenants/{id}"}
  *}
@@ -72,4 +76,5 @@ class Apprenant extends User
 
         return $this;
     }
+
 }

@@ -4,19 +4,22 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="profile", type="string")
- * @ORM\DiscriminatorMap({"ADMIN" = "User", "APPRENANT" = "Apprenant", "FORMATEUR" = "Formateur", "CM" = "Cm"})
+ * @ORM\DiscriminatorMap({"USER"="User", "ADMIN" = "Admin", "APPRENANT" = "Apprenant", "FORMATEUR" = "Formateur", "CM" = "Cm"})
+ * @ApiFilter(BooleanFilter::class, properties={"statut"=true})
  * @ApiResource(
- * attributes={ "security"="is_granted('ROLE_ADMIN')","pagination_items_per_page"=5},
+ * attributes={ "security"="is_granted('ROLE_ADMIN')","pagination_items_per_page"=10},
 *     collectionOperations={
 *         "post"={
 *          "security_message"="Seul un admin peut faire cette action.",
@@ -35,7 +38,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 *            "path"="admin/users/{id}", 
 *            "normalization_context"={"groups"={"user_details_read"}}
 *            }, 
-*         "delete"={
+*         "archivage"={
+*                   "method"="delete",
 *                   "security_message"="Seul un admin peut faire cette action.",
 *                   "path"="admin/users/{id}"},
 *         "put"={"security_post_denormalize"="is_granted('ROLE_ADMIN')",
@@ -70,7 +74,6 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(message = "password can't be null")
      * 
      */
     protected $password;
@@ -78,7 +81,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="blob")
      * @Assert\NotBlank(message = "avatar can't be null")
-     * @Groups({"user_details_read"})
+     * @Groups({"user_read"})
      */
     protected $avatar;
 
