@@ -34,6 +34,11 @@ class NiveauEvaluation
      */
     private $groupeAction;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Competence::class, inversedBy="niveauEvaluation")
+     */
+    private $competence;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +76,18 @@ class NiveauEvaluation
     public function setGroupeAction(string $groupeAction): self
     {
         $this->groupeAction = $groupeAction;
+
+        return $this;
+    }
+
+    public function getCompetence(): ?Competence
+    {
+        return $this->competence;
+    }
+
+    public function setCompetence(?Competence $competence): self
+    {
+        $this->competence = $competence;
 
         return $this;
     }
