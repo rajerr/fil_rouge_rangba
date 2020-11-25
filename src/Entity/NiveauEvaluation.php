@@ -2,13 +2,29 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\NiveauEvaluationRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass=NiveauEvaluationRepository::class)
+ * @ApiResource(
+* attributes={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul un admin peut faire cette action.", "pagination_items_per_page"=2},
+*     collectionOperations={
+*         "post"={ "path"="admin/profiles",},
+*         "get"={"path"="admin/profiles",
+*         "normalization_context"={"groups"={"niveau_read"}}
+*         }
+*     },
+*     
+*     itemOperations={
+*         "get"={"security_message"="Vous n'avez pas acces a cette ressource.","path"="admin/profiles/{id}", "normalization_context"={"groups"={"niveau_detail_read"}}}, 
+*         "delete"={"path"="admin/profiles/{id}",},
+*         "put"={"path"="admin/profiles/{id}",},
+*  }
+ * )
  */
 class NiveauEvaluation
 {
@@ -26,11 +42,15 @@ class NiveauEvaluation
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"niveau_read","niveau_detail_read"})
+     * 
      */
     private $critereEvaluaton;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"niveau_read","niveau_detail_read"})
+     * 
      */
     private $groupeAction;
 

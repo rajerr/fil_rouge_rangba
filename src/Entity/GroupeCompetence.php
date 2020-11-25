@@ -22,7 +22,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *              "path"="/admin/groupecompetences"}
  * },
  * itemOperations={
- *          "get"={"security"="is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM')",
+ *          "get"={
+ *              "security"="is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM')",
  *              "security_message"="Seul l'admin ou le formateur ou le CM a accès à cette ressource",
  *              "path"="/admin/groupecompetences/{id}"},
  *          "put"={
