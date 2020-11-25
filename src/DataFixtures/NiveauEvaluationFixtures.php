@@ -3,13 +3,13 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
-use App\Entity\ProfileSortie;
+use App\Entity\NiveauEvaluation;
 use Doctrine\Persistence\ObjectManager;
-use App\DataFixtures\ProfileSortieFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\DataFixtures\NiveauEvaluationFixtures;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class ProfileSortieFixtures extends Fixture
+class NiveauEvaluationFixtures extends Fixture
 {
     private $encoder;
 
@@ -27,14 +27,14 @@ class ProfileSortieFixtures extends Fixture
         $faker = Factory::create('fr_FR');
         
 
-        $tab = ['Frontend','Backend','Fullstack','Integrator'];
+        $tab = ['Niveau 1','Niveau 2','Niveau 3'];
 
         for($i = 0; $i <  count($tab); $i++){
 
-            $profileSortie = new ProfileSortie();
-            $profileSortie->setLibelle($tab[$i]);
-            $profileSortie->setStatut(1);
-            $manager->persist($profileSortie);
+            $niveauEvaluation = new NiveauEvaluation();
+            $niveauEvaluation->setLibelle($tab[$i]);
+            $niveauEvaluation->setStatut(1);
+            $manager->persist($niveauEvaluation);
         }
         $manager->flush();
     }

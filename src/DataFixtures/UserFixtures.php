@@ -74,7 +74,7 @@ class UserFixtures extends Fixture
             $user->setNom($faker->lastName);
             $user->setPrenom($faker->firstname);
             $user->setEmail($faker->email);
-            $user->setStatut(1);
+            $user->setStatut(true);
             $user->setTelephone($faker->e164PhoneNumber);
             $manager->persist($user);
             }
