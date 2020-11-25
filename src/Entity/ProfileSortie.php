@@ -60,7 +60,7 @@ class ProfileSortie
     /**
      * @ORM\Column(type="boolean")
      * @Assert\NotBlank(message = "libelle can't be null")
-     * @Groups({"profileSorties_read","profileSorties_detail_read"})
+     * @Groups({"profileSorties_detail_read"})
      */
     private $statut;
 

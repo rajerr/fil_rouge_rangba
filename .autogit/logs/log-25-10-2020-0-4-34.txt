@@ -1,0 +1,22 @@
+-------------------- Auto-Git Log --------------------
+		Wed Nov 25 2020 00:04:34 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/Entity/Apprenant.php
+* src/Entity/ProfileSortie.php
+
+
+Created files:
+* .autogit/logs/log-22-10-2020-14-25-26.txt
+* migrations/Version20201124234043.php
+* migrations/Version20201124234311.php
+* src/DataPersister/ProfileSortieDataPersist.php
+
+
+Deleted files:
+* src/Service/ServiceAdd.php
+* src/Service/ServiceSendMail.php
+
+
+Renamed files:
