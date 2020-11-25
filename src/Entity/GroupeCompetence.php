@@ -7,10 +7,30 @@ use App\Repository\GroupeCompetenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=GroupeCompetenceRepository::class)
+ * @ApiResource(
+ * attributes={"security"="is_granted('ROLE_ADMIN') ",
+ *              "security_message"="Seul l'admin a accès à cette ressource",
+ *              "pagination_items_per_page"=2},
+ * collectionOperations={
+ *          "get"={"path"="/admin/groupecompetences"},
+ *          "post"={
+ *              "path"="/admin/groupecompetences"}
+ * },
+ * itemOperations={
+ *          "get"={"security"="is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM')",
+ *              "security_message"="Seul l'admin ou le formateur ou le CM a accès à cette ressource",
+ *              "path"="/admin/groupecompetences/{id}"},
+ *          "put"={
+ *              "path"="/admin/groupecompetences/{id}"},
+ *          "archivage"={"method"="put",
+ *              "path"="/admin/groupecompetences/{id}/archivage"}
+ * }
+ * )
  */
 class GroupeCompetence
 {
@@ -23,6 +43,8 @@ class GroupeCompetence
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "libelle can't be null")
+     * 
      */
     private $libelle;
 

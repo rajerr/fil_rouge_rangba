@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  * attributes={"security"="is_granted('ROLE_ADMIN') ",
  *              "security_message"="Seul l'admin a accès à cette ressource", 
- *              "pagination_items_per_page"=3},
+ *              "pagination_items_per_page"=2},
  * collectionOperations={
  *          "get"={"path"="/admin/competences"},
  *          "post"={"path"="/admin/competences"}
@@ -54,6 +54,8 @@ class Competence
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotBlank(message = "statut can't be null")
+     * 
      */
     private $statut;
 
