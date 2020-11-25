@@ -77,6 +77,7 @@ class UserController extends AbstractController
         $password = randomPassword();
         $user->setPassword($encoder->encodePassword($user, $password));
         $user->setStatut(1);
+        dd($user);
         $manager->persist($user);
         $manager->flush();
 

@@ -111,7 +111,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"user_details_read"})
+     * @Groups({"user_read","user_details_read"})
+     * 
      * 
      */
     protected $statut;
