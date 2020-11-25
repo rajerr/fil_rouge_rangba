@@ -1,0 +1,19 @@
+-------------------- Auto-Git Log --------------------
+		Wed Nov 25 2020 11:21:55 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/DataFixtures/ProfileFixtures.php
+* src/DataFixtures/ProfileSortieFixtures.php
+* src/DataFixtures/UserFixtures.php
+
+
+Created files:
+* .autogit/logs/log-25-10-2020-10-51-49.txt
+* src/DataFixtures/NiveauEvaluationFixtures.php
+
+
+Deleted files:
+
+
+Renamed files:

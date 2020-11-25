@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource()
  * @ORM\Entity(repositoryClass=CompetenceRepository::class)
  * @ApiResource(
- * attributes={"security"="is_granted('ROLE_ADMIN') ",
+ * attributes={"security"="is_granted('ROLE_ADMIN')",
  *              "security_message"="Seul l'admin a accès à cette ressource", 
  *              "pagination_items_per_page"=2},
  * collectionOperations={
@@ -21,13 +21,22 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "post"={"path"="/admin/competences"}
  * },
  * itemOperations={
- *          "get"={"security"="is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM')",
+ *          "get"={
+ *              "security"="is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM')",
  *              "security_message"="Seul l'admin ou le formateur ou le CM a accès à cette ressource",
- *              "path"="/admin/competences/{id}"},
- *          "put"={"path"="/admin/competences/{id}"},
- *          "list"={"method"="get", "path"="/admin/competences/{id}/groupecompetences/{num}"},
- *          "archivage"={"method"="put",
- *              "path"="/admin/competences/{id}/archivage"}
+ *              "path"="/admin/competences/{id}"
+ *                  },
+ *          "put"={
+ *              "path"="/admin/competences/{id}"
+ *                  },
+ *          "list"={
+ *              "method"="get", 
+ *              "path"="/admin/competences/{id}/groupecompetences/{num}
+ *                  "},
+ *          "archivage"={
+ *                  "method"="put",
+ *                  "path"="/admin/competences/{id}/archivage
+*                      "}
  * }
  * )
  */
