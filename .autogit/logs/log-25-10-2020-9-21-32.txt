@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Wed Nov 25 2020 09:21:32 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/Service/ServiceAddUser.php
+* tests/Unit/ProfileTest.php
+
+
+Created files:
+* .autogit/logs/log-25-10-2020-8-51-26.txt
+
+
+Deleted files:
+
+
+Renamed files:
