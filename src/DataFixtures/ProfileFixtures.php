@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\User;
 use App\Entity\Profile;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -16,6 +17,9 @@ class ProfileFixtures extends Fixture
     
     public function load(ObjectManager $manager)
     {
+        $user = new User();
+        $user->setStatut(1);
+        
         $admin = new Profile();
         $admin->setLibelle(self::ADMIN_REFERENCE);
         $manager->persist($admin);

@@ -20,11 +20,25 @@ class UserTest extends TestCase
     {
         $value ="myusername";
         
-        $response = $this->profile->setUsername($value);
+        $response = $this->user->setUsername($value);
 
         self::assertInstanceOf(User::class, $response);
 
-        self::assertEquals($value, $this->profile->getUsername());
+        self::assertEquals($value, $this->user->getUsername());
+    }
+
+    public function testGetRole():void
+    {
+        $value =["ROLE_ADMIN", "ROLE_USER", "ROLE_USER", "ROLE_USER"];
+        
+        $response = $this->user->setRoles($value);
+
+        self::assertInstanceOf(User::class, $response);
+
+        self::assertContains("ROLE_ADMIN", $this->user->getRoles());
+        self::assertContains("ROLE_FORMATEUR", $this->user->getRoles());
+        self::assertContains("ROLE_CM", $this->user->getRoles());
+        self::assertContains("ROLE_APPRENANT", $this->user->getRoles());
     }
 
 }
