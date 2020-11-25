@@ -6,8 +6,11 @@ use PHPUnit\Framework\TestCase;
 
 class ProfileTest extends TestCase
 {
-    public function testSomething()
+    private Profile $profile;
+
+    protected function testProfile()
     {
-        $this->assertTrue(true);
+        parent::testProfile();
+        $this->profile = new Profile();
     }
 }
