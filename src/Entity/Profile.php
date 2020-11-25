@@ -18,18 +18,18 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
  * @ORM\Entity(repositoryClass=ProfileRepository::class)
  * @ApiFilter(BooleanFilter::class, properties={"statut"=true})
  * @ApiResource(
- * attributes={"security"="is_granted('ROLE_ADMIN')","pagination_items_per_page"=2},
+ * attributes={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul un admin peut faire cette action.", "pagination_items_per_page"=2},
     *     collectionOperations={
-    *         "post"={ "security_message"="Seul un admin peut faire cette action.","path"="admin/profiles",},
-    *         "get"={"security_message"="Vous n'avez pas acces a cette ressource.","path"="admin/profiles",
+    *         "post"={ "path"="admin/profiles",},
+    *         "get"={"path"="admin/profiles",
     *         "normalization_context"={"groups"={"profil_read"}}
     *         }
     *     },
     *     
     *     itemOperations={
     *         "get"={"security_message"="Vous n'avez pas acces a cette ressource.","path"="admin/profiles/{id}", "normalization_context"={"groups"={"profil_detail_read"}}}, 
-    *         "delete"={"security_message"="Seul un admin peut faire cette action.","path"="admin/profiles/{id}",},
-    *         "put"={"security_message"="Seul un admin peut faire cette action.","path"="admin/profiles/{id}",},
+    *         "delete"={"path"="admin/profiles/{id}",},
+    *         "put"={"path"="admin/profiles/{id}",},
     *  }
  * )
  */

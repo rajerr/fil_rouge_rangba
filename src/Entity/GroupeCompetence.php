@@ -55,6 +55,7 @@ class GroupeCompetence
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotBlank(message = "statut can't be null")
      */
     private $statut;
 

@@ -25,6 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *              "security_message"="Seul l'admin ou le formateur ou le CM a accès à cette ressource",
  *              "path"="/admin/competences/{id}"},
  *          "put"={"path"="/admin/competences/{id}"},
+ *          "list"={"method"="get", "path"="/admin/competences/{id}/groupecompetences/{num}"},
  *          "archivage"={"method"="put",
  *              "path"="/admin/competences/{id}/archivage"}
  * }
@@ -48,7 +49,7 @@ class Competence
     private $libelle;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text" , nullable=true)
      */
     private $descriptif;
 
