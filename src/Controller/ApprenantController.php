@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\ServiceAddUser;
 use App\Repository\ApprenantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,47 +42,21 @@ class ApprenantController extends AbstractController
      *     methods={"POST"}
      * )
      */
-    public function addApprenant(Request $request, \Swift_Mailer $mailer, UserPasswordEncoderInterface $encoder, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $manager)
+    public function addApprenant(Request $request, \Swift_Mailer $mailer, ServiceAddUser $serviceAddUser)
     {
-        $user = $request->request->all();
-        $avatar = $request->files->get("avatar");
-        dd($avatar);
-        $avatar = fopen($avatar->getRealPath(), "rb");
-        $user["avatar"] = $avatar;
-        $username = $user['username'];
-            $user = $serializer->denormalize($user, "App\Entity\Apprenant");
-        $errors = $validator->validate($user);
-        if ($errors){
-            $errors = $serializer->serialize($errors, "json");
-            return new JsonResponse($errors, Response::HTTP_BAD_REQUEST, [], true);
-        }
-        function randomPassword($length = 10)
-        {
-            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $charactersLength = strlen($characters);
-            $randomString = '';
-            for ($i = 0; $i < $length; $i++) {
-                $randomString .= $characters[rand(0, $charactersLength - 1)];
+        $user = $serviceAddUser->addUser($request, "App\Entity\Apprenant");
+            if($user != null)
+            {
+                $this->ServiceSendMAil()->sendMailaddUser();
             }
-            return $randomString;
-        }
-        $password = randomPassword();
-        $user->setPassword($encoder->encodePassword($user, $password));
-        $user->setStatut(1);
-        $manager->persist($user);
-        $manager->flush();
-
         //Envoi de l'Email de confirmation 
-
-        $message = (new \Swift_Message('Orange Digital Center'))
-            ->setFrom('rajerr2013@gmail.com')
-            ->setTo($user->getEmail())
-            ->setBody("mot de passe est $password , et le username " . $username);
-        $mailer->send($message);
+        // $message = (new \Swift_Message('Orange Digital Center'))
+        //     ->setFrom('rajerr2013@gmail.com')
+        //     ->setTo($user->getEmail())
+        //     ->setBody("mot de passe est $password , et le username " . $username);
+        // $mailer->send($message);
 
         return  $this->json($user, Response::HTTP_CREATED);
-
-        fclose($avatar);
     }
 
 

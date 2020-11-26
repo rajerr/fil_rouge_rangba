@@ -13,7 +13,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
  * @ORM\Entity(repositoryClass=CmRepository::class)
  * @ApiFilter(BooleanFilter::class, properties={"statut"=true})
  * @ApiResource(
- *   attributes={ "security"="is_granted('ROLE_ADMIN')","pagination_items_per_page"=10},
+ *   attributes={ "security"="is_granted('ROLE_ADMIN')","pagination_items_per_page"=2},
 *     collectionOperations={
 *         "post"={
 *          "security_message"="Seul un admin peut faire cette action.",

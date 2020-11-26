@@ -76,6 +76,7 @@ class ServiceAddUser
                 return new JsonResponse($errors, Response::HTTP_BAD_REQUEST, [], true);
             }
             $this->manager->persist($user);
+            dd($user);
             $this->manager->flush();
 
             fclose($avatar);
