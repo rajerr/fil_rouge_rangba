@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Thu Nov 26 2020 16:10:41 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/Controller/ApprenantController.php
+* src/DataPersister/ProfileSortieDataPersist.php
+
+
+Created files:
+* .autogit/logs/log-26-10-2020-15-40-36.txt
+
+
+Deleted files:
+
+
+Renamed files:
