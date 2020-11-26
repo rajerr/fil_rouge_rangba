@@ -46,6 +46,6 @@ class CmController extends AbstractController
     {
         $user = $serviceAddUser->addUser($request, "App\Entity\Cm");
 
-        return  $this->json($user, Response::HTTP_CREATED);
+        return  $this->json("Un Community Manager enrégistré avec succès");
     }
 }

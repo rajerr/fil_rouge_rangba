@@ -34,7 +34,8 @@ class ServiceAddUser
             return $avatar;
         }
         else{
-            return null;
+            
+            return  $this->json("avatar null");
         }
     }
     public function hashPassword($user,$password)
@@ -77,7 +78,6 @@ class ServiceAddUser
             }
             $this->manager->persist($user);
             $this->manager->flush();
-
             fclose($avatar);
         }
     }

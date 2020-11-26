@@ -45,10 +45,7 @@ class ApprenantController extends AbstractController
     public function addApprenant(Request $request, \Swift_Mailer $mailer, ServiceAddUser $serviceAddUser)
     {
         $user = $serviceAddUser->addUser($request, "App\Entity\Apprenant");
-            if($user != null)
-            {
-                $this->ServiceSendMAil()->sendMailaddUser();
-            }
+
         //Envoi de l'Email de confirmation 
         // $message = (new \Swift_Message('Orange Digital Center'))
         //     ->setFrom('rajerr2013@gmail.com')
@@ -56,7 +53,7 @@ class ApprenantController extends AbstractController
         //     ->setBody("mot de passe est $password , et le username " . $username);
         // $mailer->send($message);
 
-        return  $this->json($user, Response::HTTP_CREATED);
+        return  $this->json("Un apprenant enrégistré avec succès");
     }
 
 

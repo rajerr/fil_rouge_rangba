@@ -43,6 +43,6 @@ class FormateurController extends AbstractController
     {
         $user = $serviceAddUser->addUser($request, "App\Entity\Formateur");
 
-        return  $this->json($user, Response::HTTP_CREATED);
+        return  $this->json("Un Formateur enrégistré avec succès");
     }
 }

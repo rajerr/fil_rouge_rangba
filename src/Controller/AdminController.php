@@ -45,7 +45,8 @@ class AdminController extends AbstractController
     {
         $user = $serviceAddUser->addUser($request, "App\Entity\Admin");
 
-        return  $this->json($user, Response::HTTP_CREATED);
+        return  $this->json("Un User Admin enrégistré avec succès");
+        
 
     }
 }
