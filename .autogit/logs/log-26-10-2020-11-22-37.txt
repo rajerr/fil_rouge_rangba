@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Thu Nov 26 2020 11:22:37 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+
+
+Created files:
+* .autogit/logs/log-26-10-2020-8-39-22.txt
+* src/Service/ServiceSendMail.php
+
+
+Deleted files:
+
+
+Renamed files:
