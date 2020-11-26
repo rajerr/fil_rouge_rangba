@@ -10,6 +10,7 @@ use ApiPlatform\Core\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 class ServiceAddUser
 {
     private $encoder;
@@ -17,13 +18,14 @@ class ServiceAddUser
     private $validator;
     private $manager;
 
-    public function __construct(\Swift_Mailer $mailer ,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $manager)
+    public function __construct( \Swift_Mailer $mailer ,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $manager)
     {
         $this->encoder = $encoder;
         $this->serializer = $serializer;
         $this->validator = $validator;
         $this->manager = $manager;
         $this->mailer = $mailer;
+
     }
     public function upload($file)
     {
@@ -63,7 +65,6 @@ class ServiceAddUser
             $avatar = $request->files->get("avatar");
             $avatar = $this->upload($avatar);
             $user["avatar"] = $avatar;
-            $user["profile"]=$profile;
             //random password
             $randomPass=$this->randomPassword();
             $user["password"]=$randomPass;
@@ -76,7 +77,7 @@ class ServiceAddUser
             }
             $this->manager->persist($user);
             $this->manager->flush();
-            
+
             fclose($avatar);
         }
     }

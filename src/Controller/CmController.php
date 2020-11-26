@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\ServiceAddUser;
 use App\Repository\CmRepository;
 use App\Repository\FormateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,7 +42,7 @@ class CmController extends AbstractController
      *     methods={"POST"}
      * )
      */
-    public function addComManager(Request $request, UserPasswordEncoderInterface $encoder, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $manager)
+    public function addComManager(Request $request, ServiceAddUser $serviceAddUser)
     {
         $user = $request->request->all();
         $avatar = $request->files->get("avatar");

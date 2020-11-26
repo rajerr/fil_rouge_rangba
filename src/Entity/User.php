@@ -115,7 +115,7 @@ class User implements UserInterface
      * 
      * 
      */
-    protected $statut;
+    protected $statut=true;
 
     /**
      * @ORM\ManyToOne(targetEntity=Profile::class, inversedBy="users")
