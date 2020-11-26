@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\ServiceAddUser;
+use App\Service\ServiceSendMail;
 use App\Repository\ApprenantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,9 +43,10 @@ class ApprenantController extends AbstractController
      *     methods={"POST"}
      * )
      */
-    public function addApprenant(Request $request, \Swift_Mailer $mailer, ServiceAddUser $serviceAddUser)
+    public function addApprenant(Request $request, \Swift_Mailer $mailer, ServiceAddUser $serviceAddUser, ServiceSendMail $ServiceSendMail)
     {
         $user = $serviceAddUser->addUser($request, "App\Entity\Apprenant");
+        //dd($user);
 
         //Envoi de l'Email de confirmation 
         // $message = (new \Swift_Message('Orange Digital Center'))
@@ -52,6 +54,7 @@ class ApprenantController extends AbstractController
         //     ->setTo($user->getEmail())
         //     ->setBody("mot de passe est $password , et le username " . $username);
         // $mailer->send($message);
+        $mail=$ServiceSendMail->sendMailaddUser($user);
 
         return  $this->json("Un apprenant enrégistré avec succès");
     }

@@ -2,6 +2,10 @@
 
 namespace App\Service;
 
+
+use Symfony\Component\HttpFoundation\Response;
+use ApiPlatform\Core\Validator\ValidatorInterface;
+
 class ServiceSendMail
 {
     private $mailer;
@@ -23,4 +27,4 @@ class ServiceSendMail
 
         return true;
     }
-}
+    }

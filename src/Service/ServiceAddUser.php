@@ -3,7 +3,6 @@
 namespace App\Service;
 
 
-use App\Service\MailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use ApiPlatform\Core\Validator\ValidatorInterface;
@@ -18,13 +17,12 @@ class ServiceAddUser
     private $validator;
     private $manager;
 
-    public function __construct( \Swift_Mailer $mailer ,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $manager)
+    public function __construct(UserPasswordEncoderInterface $encoder, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $manager)
     {
         $this->encoder = $encoder;
         $this->serializer = $serializer;
         $this->validator = $validator;
         $this->manager = $manager;
-        $this->mailer = $mailer;
 
     }
     public function upload($file)
@@ -34,8 +32,7 @@ class ServiceAddUser
             return $avatar;
         }
         else{
-            
-            return  $this->json("avatar null");
+            return null;
         }
     }
     public function hashPassword($user,$password)
@@ -79,5 +76,6 @@ class ServiceAddUser
             $this->manager->persist($user);
             $this->manager->flush();
             fclose($avatar);
+            return $user;
         }
     }
