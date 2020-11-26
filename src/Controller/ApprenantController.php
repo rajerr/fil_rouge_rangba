@@ -53,7 +53,7 @@ class ApprenantController extends AbstractController
             ->setTo($user->getEmail())
             ->setBody("mot de passe est ".$user->getPassword() ," et le username " . $user->getUsername());
         $mailer->send($message);
-
+        
         return  $this->json("Un apprenant enrégistré avec succès");
     }
 

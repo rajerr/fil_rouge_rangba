@@ -33,7 +33,7 @@ class ProfileSortieDataPersister implements ContextAwareDataPersisterInterface
      */
     public function remove($data, array $context = [])
     {
-        $data->setStatut(true);
+        $data->setStatut(false);
         $apprenants=$data->getApprenants();
         $this->_entityManager->persist($data);
         foreach ($apprenants as $apprenant ) {

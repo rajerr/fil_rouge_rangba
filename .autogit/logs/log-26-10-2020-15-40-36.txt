@@ -1,0 +1,19 @@
+-------------------- Auto-Git Log --------------------
+		Thu Nov 26 2020 15:40:36 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* config/packages/lexik_jwt_authentication.yaml
+* src/Controller/ApprenantController.php
+
+
+Created files:
+* .autogit/logs/log-26-10-2020-15-10-31.txt
+
+
+Deleted files:
+* src/Service/SendMail.php
+* "src/Service/ServiceAddUser copy.php"
+
+
+Renamed files:
