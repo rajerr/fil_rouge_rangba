@@ -1,0 +1,21 @@
+-------------------- Auto-Git Log --------------------
+		Thu Nov 26 2020 12:52:55 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/Controller/ApprenantController.php
+* src/Controller/CmController.php
+* src/Controller/FormateurController.php
+* src/Entity/Cm.php
+* src/Entity/Formateur.php
+* src/Service/ServiceAddUser.php
+
+
+Created files:
+* .autogit/logs/log-26-10-2020-12-22-49.txt
+
+
+Deleted files:
+
+
+Renamed files:
