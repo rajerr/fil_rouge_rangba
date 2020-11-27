@@ -38,7 +38,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 *         "edit_apprenant"={
 *               "method" = "put",
 *               "deserialize"=false,
-*               "route_name"="edit",
+*               "route_name"="update_apprenant",
 *               }
  *}
  * )
