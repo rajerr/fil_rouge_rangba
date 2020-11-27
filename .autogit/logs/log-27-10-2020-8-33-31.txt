@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Fri Nov 27 2020 08:33:31 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+
+
+Created files:
+* .autogit/logs/log-27-10-2020-1-3-42.txt
+* src/DataFixtures/GroupeCompetenceFixtures.php
+
+
+Deleted files:
+
+
+Renamed files:
