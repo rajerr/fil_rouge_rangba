@@ -81,19 +81,21 @@ class ServiceAddUser
 
 
 
-        public function updateUser($request, $profile)
+        public function updateUser($request)
         {
             $user = $request->request->all();
+            //dd($user);
             //avatar & error verification
             $avatar = $request->files->get("avatar");
+            //dd($avatar);
             $avatar = $this->upload($avatar);
             $user["avatar"] = $avatar;
             //hash password
-            $randomPass=$this->randomPassword();
-            $user["password"]=$randomPass;
+            $password = $request->request->get("password");
+            $user["password"] = $password;
+            dd($user["password"]);
             $user->setPassword($encoder->encodePassword($user, $password));
             //dd($user);
-            $user = $this->serializer->denormalize($user,$profile);
             $errors = $this->validator->validate($user);
             if ($errors) {
                 $errors = $this->serializer->serialize($errors, "json");
@@ -104,4 +106,4 @@ class ServiceAddUser
             fclose($avatar);
             return $user;
         }
-    }
+}

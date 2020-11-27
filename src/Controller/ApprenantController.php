@@ -65,38 +65,10 @@ class ApprenantController extends AbstractController
      *     methods={"PUT"}
      * )
      */
-    public function updateApprenant(Request $request,  UserPasswordEncoderInterface $encoder, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $manager)
+    public function updateApprenant(Request $request, ServiceAddUser $serviceAddUser)
     {
-        $user = $request->request->all();
-        //dd($user);
-        $avatar = $request->files->get("avatar");
-        //dd($avatar);
-        //dd(json_decode($request->getContent(), true));
-        $avatar = fopen($avatar->getRealPath($avatar), "rb");
-        $user["avatar"] = $avatar;
-        $username = $user['username'];
-            $user = $serializer->denormalize($user, "App\Entity\Apprenant");
-        $errors = $validator->validate($user);
-        if ($errors){
-            $errors = $serializer->serialize($errors, "json");
-            return new JsonResponse($errors, Response::HTTP_BAD_REQUEST, [], true);
-        }
-        function randomPassword($length = 10)
-        {
-            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $charactersLength = strlen($characters);
-            $randomString = '';
-            for ($i = 0; $i < $length; $i++) {
-                $randomString .= $characters[rand(0, $charactersLength - 1)];
-            }
-            return $randomString;
-        }
-        $password = randomPassword();
-        $user->setPassword($encoder->encodePassword($user, $password));
-        $user->setStatut(1);
-        $manager->persist($user);
-        $manager->flush();
-            return  $this->json($user, Response::HTTP_CREATED);
-        fclose($avatar);
+        $user = $serviceAddUser->updateUser($request);
+
+        return  $this->json("Un apprenant modifié avec succès");
     }
 }
