@@ -17,6 +17,19 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class ApprenantController extends AbstractController
 {
     /**
+     * @Route("/api/admin/apprenants/{id}", methods="PUT", name="edit")
+     * 
+     */
+    public function updateApprenant(int $id, Request $request)
+    {
+         #dd($request);
+        $data = $request->getContent();
+        dd($data); 
+        $user = \preg_split($data);
+    }
+
+
+    /**
      * @Route("/api/admin/apprenants/{id}", 
      * methods={"delete"},
      *     defaults={
@@ -59,21 +72,5 @@ class ApprenantController extends AbstractController
 
 
 
-    /**
-     * @Route(
-     *     path="/api/admin/apprenants/{id}",
-     *     methods={"PUT"}
-     * )
-     */
-        protected $apprenantrepos;
-    public function __Construct(ApprenantRepository $apprenantrepos)
-    {
-        $this -> apprenantrepos = $apprenantrepos;
-    }
-    public function updateApprenant(int $id)
-    {
-        $apprenant = $this -> apprenantrepos -> find($id);
-        dd($apprenant);
-
-    }
+    
 }

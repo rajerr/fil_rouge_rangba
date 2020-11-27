@@ -13,14 +13,14 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
  * @ORM\Entity(repositoryClass=ApprenantRepository::class)
  * @ApiFilter(BooleanFilter::class, properties={"statut"=true})
  * @ApiResource(
- * attributes={ "security"="is_granted('ROLE_ADMIN')" , "pagination_items_per_page"=2},
+ * attributes={ "security"="is_granted('ROLE_ADMIN')" , 
+ *              "security_message"="Vous nêtes pas autorisé à effectuer cette action.",
+ *              "pagination_items_per_page"=2},
 *     collectionOperations={
 *         "post"={
-*          "security_message"="Vous nêtes pas autorisé à effectuer cette action.",
 *          "path"="admin/apprenants",
 *           },
 *          "get"={
-*           "security_message"="Vous n'avez pas acces a cette ressource.",
 *           "path"="admin/apprenants",
 *           "normalization_context"={"groups"={"user_read"}}
 *           }
@@ -28,17 +28,18 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 *     
 *     itemOperations={
 *         "get"={
-*            "security_message"="Vous nêtes pas autorisé à effectuer cette action.",
 *            "path"="admin/apprenants/{id}", 
 *            "normalization_context"={"groups"={"user_details_read"}}
 *            }, 
 *         "archivage"={
 *                "method"="delete",
-*                "security_message"="Vous nêtes pas autorisé à effectuer cette action.",
 *                "path"="admin/apprenants/{id}"},
-*         "put"={"security_post_denormalize"="is_granted('ROLE_ADMIN')",
-*                "security_message"="Vous nêtes pas autorisé à effectuer cette action.",
-*                "path"="admin/apprenants/{id}"}
+*
+*         "edit_apprenant"={
+*               "method" = "put",
+*               "deserialize"=false,
+*               "route_name"="edit",
+*               }
  *}
  * )
  */
