@@ -23,9 +23,11 @@ class ApprenantController extends AbstractController
     public function updateApprenant(int $id, Request $request)
     {
          #dd($request);
+        $char ="/[\s,]*\\\"([^\\\"]+)\\\"[\s,]*|" . "[\s,]*'([^']+)'[\s,]*|" . "[\s,]+/"";
         $data = $request->getContent();
-        dd($data); 
-        $user = \preg_split($data);
+        $user = preg_split($char, $data);
+        dd($user); 
+
     }
 
 
