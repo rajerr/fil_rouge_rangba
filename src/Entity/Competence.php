@@ -13,9 +13,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource()
  * @ORM\Entity(repositoryClass=CompetenceRepository::class)
  * @ApiResource(
- * attributes={"security"="is_granted('ROLE_ADMIN')",
+ * attributes={
+ *              "security"="is_granted('ROLE_ADMIN')",
  *              "security_message"="Seul l'admin a accès à cette ressource", 
  *              "pagination_items_per_page"=2},
+ * 
  * collectionOperations={
  *          "get"={"path"="/admin/competences"},
  *          "post"={"path"="/admin/competences"}
@@ -29,14 +31,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "put"={
  *              "path"="/admin/competences/{id}"
  *                  },
+ * 
  *          "list"={
  *              "method"="get", 
  *              "path"="/admin/competences/{id}/groupecompetences/{num}
  *                  "},
+ * 
  *          "archivage"={
  *                  "method"="put",
- *                  "path"="/admin/competences/{id}/archivage
-*                      "}
+ *                  "path"="/admin/competences/{id}/archivage"}
  * }
  * )
  */
