@@ -83,17 +83,18 @@ class ServiceAddUser
 
         public function updateUser($request)
         {
-            $user = $request->request->all();
-            //dd($user);
+          //  $user = $request->request->all();
+            $user = json_decode($request->getContent(), true);
+            dd($user);
             //avatar & error verification
-            $avatar = $request->files->get("avatar");
+            $avatar = json_decode($request->files->get("avatar"));
             //dd($avatar);
             $avatar = $this->upload($avatar);
             $user["avatar"] = $avatar;
             //hash password
-            $password = $request->request->get("password");
+            $password = json_decode($request->request->get("password"));
             $user["password"] = $password;
-            dd($user["password"]);
+            //dd($password);
             $user->setPassword($encoder->encodePassword($user, $password));
             //dd($user);
             $errors = $this->validator->validate($user);

@@ -79,8 +79,7 @@ class User implements UserInterface
     protected $password;
 
     /**
-     * @ORM\Column(type="blob")
-     * @Assert\NotBlank(message = "avatar can't be null")
+     * @ORM\Column(type="blob", nullable=true)
      * @Groups({"user_read"})
      */
     protected $avatar;
