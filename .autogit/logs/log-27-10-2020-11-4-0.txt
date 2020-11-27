@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Fri Nov 27 2020 11:04:00 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/DataFixtures/CompetenceFixtures.php
+* src/Entity/NiveauEvaluation.php
+
+
+Created files:
+* .autogit/logs/log-27-10-2020-10-33-54.txt
+
+
+Deleted files:
+
+
+Renamed files:

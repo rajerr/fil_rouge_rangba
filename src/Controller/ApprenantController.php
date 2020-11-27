@@ -65,10 +65,15 @@ class ApprenantController extends AbstractController
      *     methods={"PUT"}
      * )
      */
-    public function updateApprenant(Request $request, ServiceAddUser $serviceAddUser)
+        protected $apprenantrepos;
+    public function __Construct(ApprenantRepository $apprenantrepos)
     {
-        $user = $serviceAddUser->updateUser($request);
+        $this -> apprenantrepos = $apprenantrepos;
+    }
+    public function updateApprenant(int $id)
+    {
+        $apprenant = $this -> apprenantrepos -> find($id);
+        dd($apprenant);
 
-        return  $this->json("Un apprenant modifié avec succès");
     }
 }

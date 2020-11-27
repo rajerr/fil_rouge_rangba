@@ -39,14 +39,12 @@ class CompetenceFixtures extends Fixture
             $manager->persist($competence);
         }
 
-                $niveau= new NiveauEvaluation();
-                $niveau->setLibelle($tab[$i])
-                        ->setCritereEvaluaton($faker->text)
-                        ->setGroupeAction($faker->text)
-                        ->setCompetence([$tab[$i]]);
-                $manager->persist($niveau);
-            }
-            
-            $manager->flush();
+            $niveau= new NiveauEvaluation();
+            $niveau->setLibelle($tab[$i])
+                    ->setCritereEvaluaton($faker->text)
+                    ->setGroupeAction($faker->text);
+            $manager->persist($niveau);
         }
+        $manager->flush();
+    }
 }
