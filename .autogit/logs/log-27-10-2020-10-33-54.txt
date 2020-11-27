@@ -1,0 +1,18 @@
+-------------------- Auto-Git Log --------------------
+		Fri Nov 27 2020 10:33:54 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/Entity/User.php
+* src/Service/ServiceAddUser.php
+
+
+Created files:
+* .autogit/logs/log-27-10-2020-10-3-48.txt
+* migrations/Version20201127102218.php
+
+
+Deleted files:
+
+
+Renamed files:

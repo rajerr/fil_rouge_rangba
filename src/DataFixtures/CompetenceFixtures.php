@@ -28,24 +28,25 @@ class CompetenceFixtures extends Fixture
         $faker = Factory::create('fr_FR');
         
         $tab = ['Niveau 1','Niveau 2','Niveau 3'];
-    for($i=0; $i<= 5; $i++){
-        $competence = new Competence();
-        $competence->setLibelle($faker->sentence);
-        $competence->setDescriptif($faker->text);
-        $competence->setStatut(true);
-        $manager->persist($competence);
-    }
-
+      
     for($i=0; $i < count($tab) ; $i++)
     { 
-            $niveau= new NiveauEvaluation();
-            $niveau->setLibelle($tab[$i])
-                   ->setCritereEvaluaton($faker->text)
-                   ->setGroupeAction($faker->text);
-            $manager->persist($niveau);
+        for($j=0; $j<= 5; $j++){
+            $competence = new Competence();
+            $competence->setLibelle($faker->sentence);
+            $competence->setDescriptif($faker->text);
+            $competence->setStatut(true);
+            $manager->persist($competence);
         }
-        $manager->persist($competence);
-        
-        $manager->flush();
-    }
+
+                $niveau= new NiveauEvaluation();
+                $niveau->setLibelle($tab[$i])
+                        ->setCritereEvaluaton($faker->text)
+                        ->setGroupeAction($faker->text)
+                        ->setCompetence([$tab[$i]]);
+                $manager->persist($niveau);
+            }
+            
+            $manager->flush();
+        }
 }

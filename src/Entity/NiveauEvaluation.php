@@ -13,16 +13,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
 * attributes={"security"="is_granted('ROLE_ADMIN')", "security_message"="Seul un admin peut faire cette action.", "pagination_items_per_page"=2},
 *     collectionOperations={
-*         "post"={ "path"="admin/profiles",},
-*         "get"={"path"="admin/profiles",
+*         "post"={ "path"="admin/niveaux",},
+*         "get"={"path"="admin/niveaux",
 *         "normalization_context"={"groups"={"niveau_read"}}
 *         }
 *     },
 *     
 *     itemOperations={
-*         "get"={"security_message"="Vous n'avez pas acces a cette ressource.","path"="admin/profiles/{id}", "normalization_context"={"groups"={"niveau_detail_read"}}}, 
-*         "delete"={"path"="admin/profiles/{id}",},
-*         "put"={"path"="admin/profiles/{id}",},
+*         "get"={"security_message"="Vous n'avez pas acces a cette ressource.","path"="admin/niveaux/{id}", "normalization_context"={"groups"={"niveau_detail_read"}}}, 
+*         "delete"={"path"="admin/niveaux/{id}",},
+*         "put"={"path"="admin/niveaux/{id}",},
 *  }
  * )
  */
