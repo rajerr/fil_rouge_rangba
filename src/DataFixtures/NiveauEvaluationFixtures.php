@@ -16,25 +16,29 @@ class NiveauEvaluationFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         
-        // $admin = new NiveauEvaluation();
-        // $admin->setLibelle(self::NIVEAU_1_REFERENCE);
-        // $admin->setStatut(true);
-        // $manager->persist($niveau1);
+        $faker = Factory::create('fr_FR');
 
-        // $formateur = new NiveauEvaluation();
-        // $formateur->setLibelle(self::NIVEAU_2_REFERENCE);
-        // $formateur->setStatut(true);
-        // $manager->persist($niveau2);
+        $niveau = new NiveauEvaluation();
 
-        // $cm = new NiveauEvaluation();
-        // $cm->setLibelle(self::NIVEAU_3_REFERENCE);
-        // $cm->setStatut(true);
-        // $manager->persist($niveau3);
+        $niveau->setLibelle(self::NIVEAU_1_REFERENCE);
+        $niveau->setCritereEvaluaton($faker->text);
+        $niveau->setGroupeAction($faker->text);
+        $manager->persist($niveau);
+
+        $niveau->setLibelle(self::NIVEAU_2_REFERENCE);
+        $niveau->setCritereEvaluaton($faker->text);
+        $niveau->setGroupeAction($faker->text);
+        $manager->persist($niveau);
+
+        $niveau->setLibelle(self::NIVEAU_3_REFERENCE);
+        $niveau->setCritereEvaluaton($faker->text);
+        $niveau->setGroupeAction($faker->text);
+        $manager->persist($niveau);
 
 
-        // $this->addReference(self::NIVEAU_1_REFERENCE, $niveau1);
-        // $this->addReference(self::NIVEAU_2_REFERENCE, $niveau2);
-        // $this->addReference(self::NIVEAU_3_REFERENCE, $niveau3);
-        // $manager->flush();
+        $this->addReference(self::NIVEAU_1_REFERENCE, $niveau);
+        $this->addReference(self::NIVEAU_2_REFERENCE, $niveau);
+        $this->addReference(self::NIVEAU_3_REFERENCE, $niveau);
+        $manager->flush();
     }
 }

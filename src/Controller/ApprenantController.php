@@ -19,12 +19,14 @@ class ApprenantController extends AbstractController
     public function updateApprenant(int $id, Request $request)
     {
         $data = $request->getContent();
-        $char ="/form-data/";
-        $users = preg_split($char, $data);
+        $users = preg_split("/form-data/", $data);
         unset($users[0]);
-        for($i=1; $i< count($users);$i++){
-            $delSpace = preg_split("/\n\r/", $users[$i]);
-        dd($delSpace); 
+        $dat = [];
+        foreach($users as $user){
+            $delSpace = preg_split("/\n\r/", $user);
+            array_pop($delSpace);
+            array_pop($delSpace);
+            dd($dat); 
         }
 
 
