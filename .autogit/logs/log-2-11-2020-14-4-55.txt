@@ -1,0 +1,18 @@
+-------------------- Auto-Git Log --------------------
+		Wed Dec 02 2020 14:04:55 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/DataPersister/ProfileSortieDataPersist.php
+* src/Entity/Referentiel.php
+
+
+Created files:
+* .autogit/logs/log-2-11-2020-13-34-49.txt
+* src/DataFixtures/Referentiel.Fixtures.php
+
+
+Deleted files:
+
+
+Renamed files:
