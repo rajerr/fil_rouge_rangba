@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Wed Dec 02 2020 15:05:08 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/DataFixtures/GroupeCompetenceFixtures.php
+
+
+Created files:
+* .autogit/logs/log-2-11-2020-14-35-1.txt
+
+
+Deleted files:
+
+
+Renamed files:
+* [object Object]

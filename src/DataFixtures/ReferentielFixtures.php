@@ -13,9 +13,10 @@ class ReferentielFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
+
         $tab = ['Développement Web et mobile','Data Artisant', 'Referend Digital'];
 
-        for($i= 0; $i<=count($tab); $i++){
+        for($i= 0; $i< count($tab); $i++){
             $referentiel = new Referentiel();
             
             $referentiel->setLibelle($tab[$i]);
@@ -26,7 +27,7 @@ class ReferentielFixtures extends Fixture
             
             $groupeRef = new GroupeCompetence();
 
-            for($i=0; $i<=2; $i++){
+            for($j=0; $j< 2; $j++){
                 $referentiel->getGroupeCompetence($groupeRef);
                 // $manager->persist($groupeRef);
             }

@@ -26,10 +26,10 @@ use Doctrine\ORM\Mapping as ORM;
     *     },
     *     
     *     itemOperations={
-    *         "get"={"security"="is_granted('ROLE_APPRENANT')",
+    *         "get"={
     *           "path"="admin/referentiels/{id}"},  
 
-    *         "put"={"security"="is_granted('ROLE_APPRENANT')",
+    *         "put"={
     *            "path"="admin/referentiels/{id}"},
 
     *         "delete"={
