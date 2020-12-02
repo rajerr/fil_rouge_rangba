@@ -1,0 +1,18 @@
+-------------------- Auto-Git Log --------------------
+		Wed Dec 02 2020 12:32:50 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/Entity/Competence.php
+* src/Entity/GroupeCompetence.php
+* src/Entity/NiveauEvaluation.php
+
+
+Created files:
+* .autogit/logs/log-2-11-2020-11-32-38.txt
+
+
+Deleted files:
+
+
+Renamed files:
