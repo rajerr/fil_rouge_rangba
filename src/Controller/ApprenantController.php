@@ -26,7 +26,9 @@ class ApprenantController extends AbstractController
             $delSpace = preg_split("/\n\r/", $user);
             array_pop($delSpace);
             array_pop($delSpace);
-            dd($dat); 
+
+            //$a = \preg_split("//", $delSpace);
+            dd($delSpace); 
         }
 
 
