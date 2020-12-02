@@ -1,0 +1,20 @@
+-------------------- Auto-Git Log --------------------
+		Wed Dec 02 2020 13:34:49 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/Entity/Apprenant.php
+* src/Entity/Formateur.php
+* src/Entity/Groupe.php
+* src/Entity/Promo.php
+
+
+Created files:
+* .autogit/logs/log-2-11-2020-13-2-55.txt
+* migrations/Version20201202133002.php
+
+
+Deleted files:
+
+
+Renamed files:

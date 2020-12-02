@@ -9,8 +9,34 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=ReferentielRepository::class)
+ * @ApiResource(
+ * attributes={"security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *              "pagination_items_per_page"=2,
+ *              "security_message"="Vous n'etes pas autorisé à faire cette action.",
+ *              },
+ *  
+    *     collectionOperations={
+    *         "post"={
+    *               "path"="admin/referentiels"
+    *                },
+    *         "get"={
+    *               "path"="admin/referentiels"
+    *               }
+    *     },
+    *     
+    *     itemOperations={
+    *         "get"={"security"="is_granted('ROLE_APPRENANT')",
+    *           "path"="admin/referentiels/{id}"},  
+
+    *         "put"={"security"="is_granted('ROLE_APPRENANT')",
+    *            "path"="admin/referentiels/{id}"},
+
+    *         "delete"={
+    *              "path"="/admin/referentiels/{id}"}
+    *  }
+ * )
+ * 
  */
 class Referentiel
 {
