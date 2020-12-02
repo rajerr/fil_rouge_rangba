@@ -20,15 +20,15 @@ class ReferentielFixtures extends Fixture
             
             $referentiel->setLibelle($tab[$i]);
             $referentiel->setPresentation($faker->text);
-            $referentiel->setProgramme($faker->imageUrl(640,480,'file'));
+            $referentiel->setProgramme($faker->imageUrl(640,480,'cats'));
             $referentiel->setcritereEvaluation($faker->text);
             $referentiel->setcritereAdmission($faker->text);
             
             $groupeRef = new GroupeCompetence();
-            $groupeRef = getGroupeCompetence();
 
             for($i=0; $i<=2; $i++){
-                $referentiel->addGroupeCompetence($groupeRef);
+                $referentiel->getGroupeCompetence($groupeRef);
+                // $manager->persist($groupeRef);
             }
             $manager->persist($referentiel);
         }

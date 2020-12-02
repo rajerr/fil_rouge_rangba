@@ -9,17 +9,9 @@ use App\Entity\NiveauEvaluation;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\GroupeCompetenceFixtures;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class GroupeCompetenceFixtures extends Fixture
 {
-    private $encoder;
-
-    public function __construct(UserPasswordEncoderInterface $encoder) 
-    {
-
-        $this->encoder=$encoder;
-    }
 
     
     public function load(ObjectManager $manager)
