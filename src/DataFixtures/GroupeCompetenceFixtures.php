@@ -28,7 +28,7 @@ class GroupeCompetenceFixtures extends Fixture
 
         $faker = Factory::create('fr_FR');
         
-        $niveau = ['Niveau_1','Niveau_2','Niveau_3'];
+        $niveaux = ['Niveau_1','Niveau_2','Niveau_3'];
         $competences = ['Creer une BD','Connexion user','accès aux données', 'generer token'];
         // $groupeCompetences = ['Développer le back-end d’une application web','Développer le front-end d’une application web','faire le prototypage d’une application web'];
        
@@ -38,27 +38,33 @@ class GroupeCompetenceFixtures extends Fixture
             $groupeComp = new GroupeCompetence();
             $groupeComp->setLibelle($faker->sentence);
             $groupeComp->setDescriptif($faker->text);
+            $groupeComp->setStatut(true);
 
-            for($j=0; $j<= count($competences); $j++){
+
+            for($j=0; $j < count($competences); $j++){
 
                 $competence = new Competence();
-                $competence->setLibelle($competences[$i]);
+                $competence->setLibelle($competences[$j]);
                 $competence->setDescriptif($faker->text);
+                $competence->setStatut(true);
 
-                for($k=0; $k<=count($niveau); $k++){
+                for($k=0; $k < count($niveaux); $k++){
+
                     $niveau= new NiveauEvaluation();
-                    $niveau->setLibelle($niveau[$k]);
+                    $niveau->setLibelle($niveaux[$k]);
                     $niveau->setCritereEvaluaton($faker->text);
                     $niveau->setGroupeAction($faker->text);
                 $manager->persist($niveau);
                 }
 
                 $competence->addNiveauEvaluation($niveau);
-                $competence->setStatut(true);
                 $manager->persist($competence);
             }
 
             $groupeComp->addCompetence($competence);
+
+            $manager->persist($groupeComp);
+
         }
         $manager->flush();
     }

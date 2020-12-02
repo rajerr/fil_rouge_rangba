@@ -16,7 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * attributes={
  *              "security"="is_granted('ROLE_ADMIN')",
  *              "security_message"="Seul l'admin a accès à cette ressource", 
- *              "pagination_items_per_page"=2},
+ *              "pagination_items_per_page"=2,
+ * },
  * 
  * collectionOperations={
  *          "get"={"path"="/admin/competences"},
