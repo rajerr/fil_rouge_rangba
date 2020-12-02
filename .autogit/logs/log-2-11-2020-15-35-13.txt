@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Wed Dec 02 2020 15:35:13 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/DataFixtures/ReferentielFixtures.php
+* src/Entity/Referentiel.php
+
+
+Created files:
+* .autogit/logs/log-2-11-2020-15-5-8.txt
+
+
+Deleted files:
+
+
+Renamed files:

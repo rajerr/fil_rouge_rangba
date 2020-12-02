@@ -29,7 +29,7 @@ class ReferentielFixtures extends Fixture
 
             for($j=0; $j< 2; $j++){
                 $referentiel->getGroupeCompetence($groupeRef);
-                // $manager->persist($groupeRef);
+                 $manager->persist($groupeRef);
             }
             $manager->persist($referentiel);
         }
