@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\GroupeCompetenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -15,7 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  * attributes={"security"="is_granted('ROLE_ADMIN') ",
  *              "security_message"="Seul l'admin a accès à cette ressource",
- *              "pagination_items_per_page"=2},
+ *              "pagination_items_per_page"=2,
+ *              "normalization_context"={"groups"={"groupescompetences_read", "groupecompetences_details_read"}}
+ *              },
  * collectionOperations={
  *          "get"={"path"="/admin/groupecompetences"},
  *          "post"={
@@ -40,29 +43,43 @@ class GroupeCompetence
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"groupescompetences_read","groupescompetences_detail_read","competences_detail_read"})
+     * 
+     * 
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message = "libelle can't be null")
+     * @Groups({"groupescompetences_read","groupescompetences_detail_read","competences_detail_read"})
+     * 
+     * 
      * 
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"groupescompetences_read","groupescompetences_detail_read","competences_detail_read"})
+     * 
+     * 
      */
     private $descriptif;
 
     /**
      * @ORM\Column(type="boolean")
      * @Assert\NotBlank(message = "statut can't be null")
+     * @Groups({"groupescompetences_read","groupescompetences_detail_read","competences_detail_read"})
+     * 
      */
     private $statut;
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="groupeCompetences")
+     * @Groups({"groupescompetences_read","groupescompetences_detail_read","competences_detail_read"})
+     * 
      */
     private $competences;
 

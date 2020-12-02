@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 *     collectionOperations={
 *         "post"={ "path"="admin/niveaux",},
 *         "get"={"path"="admin/niveaux",
-*         "normalization_context"={"groups"={"niveau_read"}}
+*         "normalization_context"={"groups"={"niveau_read", "niveau_details_read"}}
 *         }
 *     },
 *     
@@ -32,17 +32,22 @@ class NiveauEvaluation
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"niveau_read","niveau_detail_read"})
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"niveau_read","niveau_detail_read"})
+     * 
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="text")
      * @Groups({"niveau_read","niveau_detail_read"})
+     * 
      * 
      */
     private $critereEvaluaton;
@@ -56,6 +61,8 @@ class NiveauEvaluation
 
     /**
      * @ORM\ManyToOne(targetEntity=Competence::class, inversedBy="niveauEvaluation")
+     * @Groups({"niveau_detail_read"})
+     * 
      */
     private $competence;
 

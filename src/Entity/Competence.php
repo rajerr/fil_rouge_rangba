@@ -2,22 +2,28 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\CompetenceRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CompetenceRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass=CompetenceRepository::class)
+ * @ApiFilter(BooleanFilter::class, properties={"statut"=true})
+ * 
  * @ApiResource(
  * attributes={
  *              "security"="is_granted('ROLE_ADMIN')",
  *              "security_message"="Seul l'admin a accès à cette ressource", 
  *              "pagination_items_per_page"=2,
- * },
+ *              "normalization_context"={"groups"={"competences_read", "competences_details_read"}}
+ *              },
  * 
  * collectionOperations={
  *          "get"={"path"="/admin/competences"},
@@ -50,6 +56,8 @@ class Competence
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"competences_read","competences_detail_read", "niveau_read","niveau_detail_read"})
+     * 
      * 
      */
     private $id;
@@ -57,29 +65,39 @@ class Competence
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message = "libelle can't be null")
+     * @Groups({"competences_read","competences_detail_read", "niveau_read","niveau_detail_read"})
+     * 
      * 
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="text" , nullable=true)
+     * @Groups({"competences_read","competences_detail_read", "niveau_read","niveau_detail_read"})
+     * 
      */
     private $descriptif;
 
     /**
      * @ORM\Column(type="boolean")
      * @Assert\NotBlank(message = "statut can't be null")
+     * @Groups({"competences_read","competences_detail_read", "niveau_read","niveau_detail_read"})
+     * 
      * 
      */
     private $statut;
 
     /**
      * @ORM\ManyToMany(targetEntity=GroupeCompetence::class, mappedBy="competences")
+     * @Groups({"competences_read","competences_detail_read","groupecompetences_detail_read","groupecompetences_read"})
+     * 
      */
     private $groupeCompetences;
 
     /**
      * @ORM\OneToMany(targetEntity=NiveauEvaluation::class, mappedBy="competence")
+     * @Groups({"competences_detail_read","groupecompetences_detail_read","niveau_detail_read"})
+     * 
      */
     private $niveauEvaluation;
 
