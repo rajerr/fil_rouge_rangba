@@ -37,7 +37,7 @@ class Promo
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lieu;
 
@@ -70,6 +70,11 @@ class Promo
      * @ORM\OneToMany(targetEntity=Groupe::class, mappedBy="promo")
      */
     private $groupes;
+
+    /**
+     * @ORM\Column(type="blob", nullable=true)
+     */
+    private $avatar;
 
     public function __construct()
     {
@@ -234,6 +239,18 @@ class Promo
                 $groupe->setPromo(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
