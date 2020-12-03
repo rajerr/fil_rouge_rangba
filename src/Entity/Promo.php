@@ -2,45 +2,46 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\PromoRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PromoRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=PromoRepository::class)
  * @ApiResource(
  * attributes={ 
  *              "security"="is_granted('ROLE_ADMIN')", 
  *              "pagination_items_per_page"=2, 
  *              "security_message"="Action non authorisée.",
- *              "normalizationContext" ={"groups"={"promo_read:read","user_read"}}
+ *              "normalizationContext" ={"groups"={"promo_read", "promo_detail_read", "user_read"}}
  *            },
 *     collectionOperations={
 *         "post"={
 *               "path"="/admin/promos"
 *                },
 *
-*         "get_all_promos"={
-*               "method"="GET",
+*         "get"={
 *               "path"="/admin/promos"
 *               },
 *
 *         "get_principal_promo"={
 *               "method"="GET",
-*               "path"="/admin/promos/principal"
+*               "path"="/admin/promos/{id}/principal"
 *               },
 *
-*           "get"={
-*               
-*            "path"="/admin/promos/apprenants/attente"
+*           "get_apprenant_attente_promo"={
+*               "method"="GET",
+*               "path"="/admin/promos/apprenants/attente"
 *          }
 *     },
 *     
 *     itemOperations={
-*         "get"={
+*         "get_one_promo"={
+*               "method"="GET",
 *                "path"="admin/promo/{id}"
 *               },
 *
@@ -60,7 +61,7 @@ use Doctrine\ORM\Mapping as ORM;
 *           
 *            "promo_groupe_apprenant"={
 *              "method"="GET",
-*              "path"="/admin/promo/{id}/groupes/{id}/apprenants"          
+*              "path"="/admin/promo/{id}/groupes/{num}/apprenants"          
 *            },
 **            "get_promo_formateurs"={
 *              "method"="GET",
@@ -84,7 +85,7 @@ use Doctrine\ORM\Mapping as ORM;
 *
 *         "promo_groupes"={
 *              "method"="put",
-*               "path"="admin/promo/{id}/groupes/{id}"
+*               "path"="admin/promo/{id}/groupes/{num}"
 *                },
 *  }
  * )
@@ -95,53 +96,68 @@ class Promo
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"promo_read","promo_details_read"})
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"promo_read","promo_details_read"})
+     * @Assert\NotBlank(message = "langue can't be null")
+     * 
      */
     private $langue;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"promo_read","promo_details_read"})
+     * @Assert\NotBlank(message = "titre can't be null")
+     * 
      */
     private $titre;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"promo_read","promo_details_read"})
+     * @Assert\NotBlank(message = "description can't be null")
+     * 
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"promo_read","promo_details_read"})
      */
     private $lieu;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"promo_read","promo_details_read"})
+     * @Assert\NotBlank(message = "reference agate can't be null")
      */
     private $referenceAgate;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "fabrique can't be null")
+     * @Groups({"promo_read","promo_details_read"})
      */
     private $choixFabrique;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"promo_read","promo_details_read"})
+     * @Assert\NotBlank(message = "date can't be null")
      */
     private $dateDebut;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"promo_read","promo_details_read"})
+     * @Assert\NotBlank(message = "date can't be null")
      */
     private $dateFin;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Referentiel::class, mappedBy="promo")
-     */
-    private $referentiel;
 
     /**
      * @ORM\OneToMany(targetEntity=Groupe::class, mappedBy="promo")
@@ -150,13 +166,21 @@ class Promo
 
     /**
      * @ORM\Column(type="blob", nullable=true)
+     * @Groups({"promo_read","promo_details_read"})
+     * 
      */
     private $avatar;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Referentiel::class, mappedBy="promo")
+     */
+    private $referentiels;
 
     public function __construct()
     {
         $this->referentiel = new ArrayCollection();
         $this->groupes = new ArrayCollection();
+        $this->referentiels = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -260,35 +284,6 @@ class Promo
         return $this;
     }
 
-    /**
-     * @return Collection|Referentiel[]
-     */
-    public function getReferentiel(): Collection
-    {
-        return $this->referentiel;
-    }
-
-    public function addReferentiel(Referentiel $referentiel): self
-    {
-        if (!$this->referentiel->contains($referentiel)) {
-            $this->referentiel[] = $referentiel;
-            $referentiel->setPromo($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReferentiel(Referentiel $referentiel): self
-    {
-        if ($this->referentiel->removeElement($referentiel)) {
-            // set the owning side to null (unless already changed)
-            if ($referentiel->getPromo() === $this) {
-                $referentiel->setPromo(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Groupe[]
@@ -322,7 +317,10 @@ class Promo
 
     public function getAvatar()
     {
-        return $this->avatar;
+        $data = stream_get_contents($this->avatar);
+        fclose($this->avatar);
+
+       return base64_encode($data);
     }
 
     public function setAvatar($avatar): self
@@ -331,4 +329,35 @@ class Promo
 
         return $this;
     }
+
+    /**
+     * @return Collection|Referentiel[]
+     */
+    public function getReferentiels(): Collection
+    {
+        return $this->referentiels;
+    }
+
+    public function addReferentiel(Referentiel $referentiel): self
+    {
+        if (!$this->referentiels->contains($referentiel)) {
+            $this->referentiels[] = $referentiel;
+            $referentiel->setPromo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReferentiel(Referentiel $referentiel): self
+    {
+        if ($this->referentiels->removeElement($referentiel)) {
+            // set the owning side to null (unless already changed)
+            if ($referentiel->getPromo() === $this) {
+                $referentiel->setPromo(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

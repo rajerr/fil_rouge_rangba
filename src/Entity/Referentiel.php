@@ -78,13 +78,13 @@ class Referentiel
     private $groupeCompetence;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="referentiel")
+     * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="referentiels")
      */
     private $promo;
 
     public function __construct()
     {
-        $this->groupeCompetence = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -190,4 +190,5 @@ class Referentiel
 
         return $this;
     }
+
 }
