@@ -9,8 +9,45 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=GroupeRepository::class)
+ * @ApiResource(
+ * attributes={
+ *              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))", 
+*               "security_message"="Seul un admin peut faire cette action.",
+*               "pagination_items_per_page"=2
+*               },
+    *     collectionOperations={
+    *         "post"={
+    *              "path"="admin/groupes"
+    *                },
+    *         "get"={
+    *               "path"="admin/groupes"}
+    *     },
+    *     
+    *     itemOperations={
+    *         "get"={
+    *               "path"="admin/groupes/{id}"
+    *               }, 
+    *
+    *         "get_grp_students"={
+    *           "method"="GET",
+    *           "path"="admin/groupes/{id}/apprenants",
+    *           },
+    *
+    *         "put"={
+    *           "path"="admin/groupes/{id}/apprenants"
+    *               },
+    *         "delete"={
+    *           "path"="admin/groupes/{id}"
+    *                   },
+    *
+    *         "del_grp_student"={
+    *           "method"="DELETE",
+    *           "path"="admin/groupes/{id}/apprenants/{num}" ,
+    *           }
+    *     }
+ * )
+ * 
  */
 class Groupe
 {

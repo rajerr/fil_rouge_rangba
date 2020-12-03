@@ -78,13 +78,14 @@ class Referentiel
     private $groupeCompetence;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="referentiels")
+     * @ORM\OneToMany(targetEntity=Promo::class, mappedBy="referentiel")
      */
     private $promo;
 
+ 
     public function __construct()
     {
-        
+        $this->promo = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,14 +180,32 @@ class Referentiel
         return $this;
     }
 
-    public function getPromo(): ?Promo
+    /**
+     * @return Collection|Promo[]
+     */
+    public function getPromo(): Collection
     {
         return $this->promo;
     }
 
-    public function setPromo(?Promo $promo): self
+    public function addPromo(Promo $promo): self
     {
-        $this->promo = $promo;
+        if (!$this->promo->contains($promo)) {
+            $this->promo[] = $promo;
+            $promo->setReferentiel($this);
+        }
+
+        return $this;
+    }
+
+    public function removePromo(Promo $promo): self
+    {
+        if ($this->promo->removeElement($promo)) {
+            // set the owning side to null (unless already changed)
+            if ($promo->getReferentiel() === $this) {
+                $promo->setReferentiel(null);
+            }
+        }
 
         return $this;
     }

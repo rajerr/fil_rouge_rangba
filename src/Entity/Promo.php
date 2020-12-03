@@ -30,7 +30,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 *
 *         "get_principal_promo"={
 *               "method"="GET",
-*               "path"="/admin/promos/{id}/principal"
+*               "path"="/admin/promos/principal"
 *               },
 *
 *           "get_apprenant_attente_promo"={
@@ -42,50 +42,50 @@ use Symfony\Component\Serializer\Annotation\Groups;
 *     itemOperations={
 *         "get_one_promo"={
 *               "method"="GET",
-*                "path"="admin/promo/{id}"
+*                "path"="admin/promos/{id}"
 *               },
 *
 *            "promo_principal"={
 *              "method"="GET",
-*              "path"="/admin/promo/{id}/principal"
+*              "path"="/admin/promos/{id}/principal"
 *               },
 *            "get_referentiel_promo"={
 *              "method"="GET",
-*              "path"="/admin/promo/{id}/referentiels"          
+*              "path"="/admin/promos/{id}/referentiels"          
 *            },
 *
 *            "promo_apprenant_attente"={
 *              "method"="GET",
-*              "path"="/admin/promo/{id}/apprenants/attente"          
+*              "path"="/admin/promos/{id}/apprenants/attente"          
 *            },
 *           
 *            "promo_groupe_apprenant"={
 *              "method"="GET",
-*              "path"="/admin/promo/{id}/groupes/{num}/apprenants"          
+*              "path"="/admin/promos/{id}/groupes/{num}/apprenants"          
 *            },
 **            "get_promo_formateurs"={
 *              "method"="GET",
-*              "path"="/admin/promo/{id}/formateurs"          
+*              "path"="/admin/promos/{id}/formateurs"          
 *            },
 *
 *         "promo_ref"={
 *              "method"="put",
-*               "path"="admin/promo/{id}/referentiels"
+*               "path"="admin/promos/{id}/referentiels"
 *                },
 *
 *         "promo_formateurs"={
 *              "method"="put",
-*               "path"="admin/promo/{id}/formateurs"
+*               "path"="admin/promos/{id}/formateurs"
 *                },
 *
 *         "promo_apprenants"={
 *              "method"="put",
-*               "path"="admin/promo/{id}/apprenants"
+*               "path"="admin/promos/{id}/apprenants"
 *                },
 *
 *         "promo_groupes"={
 *              "method"="put",
-*               "path"="admin/promo/{id}/groupes/{num}"
+*               "path"="admin/promos/{id}/groupes/{num}"
 *                },
 *  }
  * )
@@ -172,15 +172,13 @@ class Promo
     private $avatar;
 
     /**
-     * @ORM\OneToMany(targetEntity=Referentiel::class, mappedBy="promo")
+     * @ORM\ManyToOne(targetEntity=Referentiel::class, inversedBy="promo")
      */
-    private $referentiels;
+    private $referentiel;
 
     public function __construct()
     {
-        $this->referentiel = new ArrayCollection();
         $this->groupes = new ArrayCollection();
-        $this->referentiels = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -330,32 +328,14 @@ class Promo
         return $this;
     }
 
-    /**
-     * @return Collection|Referentiel[]
-     */
-    public function getReferentiels(): Collection
+    public function getReferentiel(): ?Referentiel
     {
-        return $this->referentiels;
+        return $this->referentiel;
     }
 
-    public function addReferentiel(Referentiel $referentiel): self
+    public function setReferentiel(?Referentiel $referentiel): self
     {
-        if (!$this->referentiels->contains($referentiel)) {
-            $this->referentiels[] = $referentiel;
-            $referentiel->setPromo($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReferentiel(Referentiel $referentiel): self
-    {
-        if ($this->referentiels->removeElement($referentiel)) {
-            // set the owning side to null (unless already changed)
-            if ($referentiel->getPromo() === $this) {
-                $referentiel->setPromo(null);
-            }
-        }
+        $this->referentiel = $referentiel;
 
         return $this;
     }

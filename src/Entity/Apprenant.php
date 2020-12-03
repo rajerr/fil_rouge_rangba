@@ -65,11 +65,15 @@ class Apprenant extends User
 
     /**
      * @ORM\ManyToOne(targetEntity=ProfileSortie::class, inversedBy="apprenants")
+     * @Groups({"user_read","user_details_read"})
+     * 
      */
     private $profileSorttie;
 
     /**
      * @ORM\ManyToMany(targetEntity=Groupe::class, mappedBy="apprenant")
+     * @Groups({"user_read","user_details_read"})
+     * 
      */
     private $groupes;
 
