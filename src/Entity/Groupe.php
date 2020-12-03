@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\GroupeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\GroupeRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=GroupeRepository::class)
@@ -14,7 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
  * attributes={
  *              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))", 
 *               "security_message"="Seul un admin peut faire cette action.",
-*               "pagination_items_per_page"=2
+*               "pagination_items_per_page"=2,
+*               "normalization_context"={"groups"={"groupe_detail_read", "groupe_read"}}
 *               },
     *     collectionOperations={
     *         "post"={
@@ -32,6 +34,7 @@ use Doctrine\ORM\Mapping as ORM;
     *         "get_grp_students"={
     *           "method"="GET",
     *           "path"="admin/groupes/{id}/apprenants",
+    *
     *           },
     *
     *         "put"={
@@ -55,31 +58,43 @@ class Groupe
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"groupe_read","groupe_detail_read"})
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"groupe_read","groupe_detail_read"})
+     * 
      */
     private $nom;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"groupe_read","groupe_detail_read"})
+     * 
      */
     private $dateCreation;
 
     /**
      * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="groupes")
+     * @Groups({"groupe_read","groupe_detail_read"})
+     * 
      */
     private $promo;
 
     /**
      * @ORM\ManyToMany(targetEntity=Formateur::class, inversedBy="groupes")
+     * @Groups({"groupe_read","groupe_detail_read"})
+     * 
      */
     private $formateur;
 
     /**
      * @ORM\ManyToMany(targetEntity=Apprenant::class, inversedBy="groupes")
+     * @Groups({"groupe_read","groupe_detail_read"})
+     * 
      */
     private $apprenant;
 

@@ -16,18 +16,35 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
  * @ORM\Entity(repositoryClass=ProfileSortieRepository::class)
  * @ApiFilter(BooleanFilter::class, properties={"statut"=true})
  * @ApiResource(
-* attributes={"security"="is_granted('ROLE_ADMIN')","pagination_items_per_page"=2},
+* attributes={
+*               "security"="is_granted('ROLE_ADMIN')",
+*               "security_message"="Seul un admin peut faire cette action.",
+*               "pagination_items_per_page"=2,
+*               "normalization_context"={"groups"={"profileSorties_read", "profileSorties_detail_read"}}
+*               },
+
 *     collectionOperations={
-*         "post"={ "security_message"="Seul un admin peut faire cette action.","path"="admin/profileSorties",},
-*         "get"={"security_message"="Vous n'avez pas acces a cette ressource.","path"="admin/profileSorties",
-*         "normalization_context"={"groups"={"profileSorties_read"}}
-*         }
+*         "post"={ 
+*               "path"="admin/profileSorties"
+*                   },
+*         "get"={
+*               "path"="admin/profileSorties",
+*               "normalization_context"={"groups"={"profileSorties_read"}}
+*               }
 *     },
 *     
 *     itemOperations={
-*         "get"={"security_message"="Vous n'avez pas acces a cette ressource.","path"="admin/profileSorties/{id}", "normalization_context"={"groups"={"profileSorties_detail_read"}}}, 
-*         "delete"={"security_message"="Seul un admin peut faire cette action.","path"="admin/profileSorties/{id}",},
-*         "put"={"security_message"="Seul un admin peut faire cette action.","path"="admin/profileSorties/{id}",},
+*
+*         "get"={
+*               "path"="admin/profileSorties/{id}",
+*               "normalization_context"={"groups"={"profileSorties_detail_read"}}
+*          }, 
+*
+*         "delete"={
+*                   "path"="admin/profileSorties/{id}",},
+*
+*         "put"={
+*               "path"="admin/profileSorties/{id}",},
 *  }
  * )
  */
