@@ -25,11 +25,14 @@ class ReferentielFixtures extends Fixture
             $referentiel->setcritereEvaluation($faker->text);
             $referentiel->setcritereAdmission($faker->text);
             
-            $groupeRef = new GroupeCompetence();
-
             for($j=0; $j< 2; $j++){
-                $referentiel->getGroupeCompetence($groupeRef);
-                 $manager->persist($groupeRef);
+            $groupeComp = new GroupeCompetence();
+
+                $groupeComp->setLibelle($faker->sentence);
+                $groupeComp->setDescriptif($faker->text);
+                $groupeComp->setStatut(true);
+                $referentiel->addGroupeCompetence($groupeComp);
+                 $manager->persist($groupeComp);
             }
             $manager->persist($referentiel);
         }

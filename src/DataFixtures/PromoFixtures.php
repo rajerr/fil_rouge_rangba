@@ -19,13 +19,15 @@ class PromoFixtures extends Fixture
             $promo = new Promo();
             
             $promo->setLangue(('french'));
-            $promo->setTitre($faker->title);
+            $promo->setTitre($faker->sentence);
             $promo->setdescription($faker->text);
             $promo->setLieu($faker->country);
             $promo->setReferenceAgate($faker->sentence);
             $promo->setChoixFabrique("Sonatel Academy");
             $promo->setDateDebut(new \DateTime('now'));
             $promo->setDateFin(new \DateTime('2015-01-01'));
+            $promo->setAvatar($faker->imageUrl(640,480,'cats'));
+
             
             $groupe = new Groupe();
 
@@ -33,7 +35,7 @@ class PromoFixtures extends Fixture
                 $groupe->setDateCreation(new \DateTime('now'));
                 $manager->persist($groupe);
 
-            $promo->addGroupe($groupe);
+            $promo->addGroupe($groupe); 
 
             $manager->persist($promo);
         }

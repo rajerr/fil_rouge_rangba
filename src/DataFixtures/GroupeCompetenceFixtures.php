@@ -53,7 +53,7 @@ class GroupeCompetenceFixtures extends Fixture
             }
 
             $groupeComp->addCompetence($competence);
-            dd($groupeComp);
+            // dd($groupeComp);
             $manager->persist($groupeComp);
 
         }
