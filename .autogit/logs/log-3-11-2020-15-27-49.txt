@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Thu Dec 03 2020 15:27:49 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/Entity/Groupe.php
+* src/Entity/ProfileSortie.php
+
+
+Created files:
+* .autogit/logs/log-3-11-2020-14-57-43.txt
+
+
+Deleted files:
+
+
+Renamed files:

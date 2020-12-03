@@ -15,8 +15,9 @@ class PromoController extends AbstractController
      */
     public function addPromo(): Response
     {
+        dd("ok");
+
         $promo = $request->request->all();
-        dd($promo);
         $avatar = $request->files->get("avatar");
         $avatar = fopen($avatar->getRealPath(), "rb");
         $promo["avatar"] = $avatar;

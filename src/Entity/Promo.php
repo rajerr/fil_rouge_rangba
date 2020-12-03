@@ -161,6 +161,8 @@ class Promo
 
     /**
      * @ORM\OneToMany(targetEntity=Groupe::class, mappedBy="promo")
+     * @Groups({"promo_read","promo_details_read", "groupe_detail_read"})
+     * 
      */
     private $groupes;
 
