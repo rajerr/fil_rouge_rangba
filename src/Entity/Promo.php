@@ -13,59 +13,79 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass=PromoRepository::class)
  * @ApiResource(
  * attributes={ 
- *              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))", 
+ *              "security"="is_granted('ROLE_ADMIN')", 
  *              "pagination_items_per_page"=2, 
  *              "security_message"="Action non authorisée.",
- *              normalizationContext ={"groups"={"promo_read:read","user_read"}}
- *              },
+ *              "normalizationContext" ={"groups"={"promo_read:read","user_read"}}
+ *            },
 *     collectionOperations={
 *         "post"={
 *               "path"="/admin/promos"
 *                },
-*         "get"={"security"="(is_granted('ROLE_CM') or is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') )", 
-*               "security_message"="Vous n'avez pas acces a cette ressource.",
-*               "path"="/admin/promos"},
-
-*         "get"={
-*            "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
-*            "security_message"="Vous n'avez pas access à cette Ressource",
-*            "path"="/admin/promo/principal"
+*
+*         "get_all_promos"={
+*               "method"="GET",
+*               "path"="/admin/promos"
 *               },
+*
+*         "get_principal_promo"={
+*               "method"="GET",
+*               "path"="/admin/promos/principal"
+*               },
+*
 *           "get"={
-*            "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
-*            "security_message"="Vous n'avez pas access à cette Ressource",
-*            "path"="/admin/promo/principal"
+*               
+*            "path"="/admin/promos/apprenants/attente"
 *          }
 *     },
 *     
 *     itemOperations={
 *         "get"={
-*                "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM')",
-*                "security_message"="Vous n'avez pas access à cette Ressource",
 *                "path"="admin/promo/{id}"
 *               },
-*            "detail_one_grp_principal"={
+*
+*            "promo_principal"={
 *              "method"="GET",
-*              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
-*              "path"="/admin/promo/{id}/principal",
-*              "security_message"="Vous n'avez pas access à cette Ressource"
+*              "path"="/admin/promo/{id}/principal"
 *               },
-*            "referentiel_promo"={
+*            "get_referentiel_promo"={
 *              "method"="GET",
-*              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
-*              "security_message"="Vous n'avez pas access à cette Ressource",
 *              "path"="/admin/promo/{id}/referentiels"          
 *            },
-*         "put"={"security_post_denormalize"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))","security_message"="Seul un admin peut faire cette action.","path"="admin/promo/{id}",},
-*            "add_del_students_one_promo"={
-*              "method"="PUT",
-*              "path"="/admin/promo/{id}/apprenants",          
-*              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
-*              "security_message"="Vous n'avez pas access à cette Ressource"
+*
+*            "promo_apprenant_attente"={
+*              "method"="GET",
+*              "path"="/admin/promo/{id}/apprenants/attente"          
 *            },
-*            "delete"={
-*              "path"="/admin/promo/{id}/groupes/{num}"
-*            }
+*           
+*            "promo_groupe_apprenant"={
+*              "method"="GET",
+*              "path"="/admin/promo/{id}/groupes/{id}/apprenants"          
+*            },
+**            "get_promo_formateurs"={
+*              "method"="GET",
+*              "path"="/admin/promo/{id}/formateurs"          
+*            },
+*
+*         "promo_ref"={
+*              "method"="put",
+*               "path"="admin/promo/{id}/referentiels"
+*                },
+*
+*         "promo_formateurs"={
+*              "method"="put",
+*               "path"="admin/promo/{id}/formateurs"
+*                },
+*
+*         "promo_apprenants"={
+*              "method"="put",
+*               "path"="admin/promo/{id}/apprenants"
+*                },
+*
+*         "promo_groupes"={
+*              "method"="put",
+*               "path"="admin/promo/{id}/groupes/{id}"
+*                },
 *  }
  * )
  */
