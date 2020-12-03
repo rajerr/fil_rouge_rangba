@@ -12,57 +12,49 @@ use Doctrine\ORM\Mapping as ORM;
  * @ApiResource()
  * @ORM\Entity(repositoryClass=PromoRepository::class)
  * @ApiResource(
- * attributes={ "security"="is_granted('ROLE_ADMIN')" , "pagination_items_per_page"=2},
- * 
- *        normalizationContext ={"groups"={"promo_read:read","user_read"}},
+ * attributes={ 
+ *              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))", 
+ *              "pagination_items_per_page"=2, 
+ *              "security_message"="Action non authorisée.",
+ *              normalizationContext ={"groups"={"promo_read:read","user_read"}}
+ *              },
 *     collectionOperations={
-*         "post"={"security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))", "security_message"="Action non authorisée.","path"="/admin/promos"},
-*         "get"={"security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))", "security_message"="Vous n'avez pas acces a cette ressource.","path"="/admin/promo"},
-*         "list_grp_principal"={
-*            "method"="GET",
-*            "path"="/admin/promo/principal",
+*         "post"={
+*               "path"="/admin/promos"
+*                },
+*         "get"={"security"="(is_granted('ROLE_CM') or is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') )", 
+*               "security_message"="Vous n'avez pas acces a cette ressource.",
+*               "path"="/admin/promos"},
+
+*         "get"={
 *            "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
-*            "security_message"="Vous n'avez pas access à cette Ressource"
-*          },
-*         "waiting_list_all_students"={
-*            "method"="GET",
-*            "path"="/admin/promo/apprenants/attente",          
-*           "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
-*           "security_message"="Vous n'avez pas access à cette Ressource"
+*            "security_message"="Vous n'avez pas access à cette Ressource",
+*            "path"="/admin/promo/principal"
+*               },
+*           "get"={
+*            "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+*            "security_message"="Vous n'avez pas access à cette Ressource",
+*            "path"="/admin/promo/principal"
 *          }
 *     },
 *     
 *     itemOperations={
-*         "get"={"security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM')","security_message"="Seul un admin peut faire cette action.","path"="admin/promo/{id}"},
+*         "get"={
+*                "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM')",
+*                "security_message"="Vous n'avez pas access à cette Ressource",
+*                "path"="admin/promo/{id}"
+*               },
 *            "detail_one_grp_principal"={
 *              "method"="GET",
-*              "path"="/admin/promo/{id}/principal",
 *              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+*              "path"="/admin/promo/{id}/principal",
 *              "security_message"="Vous n'avez pas access à cette Ressource"
-*            },
+*               },
 *            "referentiel_promo"={
 *              "method"="GET",
-*              "path"="/admin/promo/{id}/referentiels",          
 *              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
-*              "security_message"="Vous n'avez pas access à cette Ressource"
-*            },
-*            "waiting_list_one_promo"={
-*              "method"="GET",
-*              "path"="/admin/promo/{id}/apprenants/attente",          
-*              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') )",
-*              "security_message"="Vous n'avez pas access à cette Ressource"
-*            },
-*            "grp_students_of_one_promo"={
-*              "method"="GET",
-*              "path"="/admin/promo/{id}/groupes/{num}/apprenants",          
-*              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
-*              "security_message"="Vous n'avez pas access à cette Ressource"
-*            },
-*            "formers_one_promo"={
-*              "method"="GET",
-*              "path"="/admin/promo/{id}/formateurs",          
-*              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
-*              "security_message"="Vous n'avez pas access à cette Ressource"
+*              "security_message"="Vous n'avez pas access à cette Ressource",
+*              "path"="/admin/promo/{id}/referentiels"          
 *            },
 *         "put"={"security_post_denormalize"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))","security_message"="Seul un admin peut faire cette action.","path"="admin/promo/{id}",},
 *            "add_del_students_one_promo"={
@@ -71,17 +63,8 @@ use Doctrine\ORM\Mapping as ORM;
 *              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
 *              "security_message"="Vous n'avez pas access à cette Ressource"
 *            },
-*            "add_del_formers_one_promo"={
-*              "method"="PUT",
-*              "path"="/admin/promo/{id}/formateurs",          
-*              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
-*              "security_message"="Vous n'avez pas access à cette Ressource"
-*            },
-*            "put_promo_grp_status"={
-*              "method"="PUT",
-*              "path"="/admin/promo/{id}/groupes/{num}",          
-*              "security"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
-*              "security_message"="Vous n'avez pas access à cette Ressource"
+*            "delete"={
+*              "path"="/admin/promo/{id}/groupes/{num}"
 *            }
 *  }
  * )

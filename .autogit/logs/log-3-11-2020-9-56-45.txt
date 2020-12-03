@@ -1,0 +1,19 @@
+-------------------- Auto-Git Log --------------------
+		Thu Dec 03 2020 09:56:45 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/DataFixtures/GroupeCompetenceFixtures.php
+* src/DataFixtures/PromoFixtures.php
+* src/DataFixtures/ReferentielFixtures.php
+* src/Entity/Promo.php
+
+
+Created files:
+* .autogit/logs/log-3-11-2020-9-26-40.txt
+
+
+Deleted files:
+
+
+Renamed files:
