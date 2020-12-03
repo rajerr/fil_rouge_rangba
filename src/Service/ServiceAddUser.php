@@ -102,7 +102,7 @@ class ServiceAddUser
                 $errors = $this->serializer->serialize($errors, "json");
                 return new JsonResponse($errors, Response::HTTP_BAD_REQUEST, [], true);
             }
-            // $this->manager->persist($user);
+            $this->manager->persist($user);
             $this->manager->flush();
             fclose($avatar);
             return $user;

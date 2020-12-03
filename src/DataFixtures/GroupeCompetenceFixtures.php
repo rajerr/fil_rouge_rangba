@@ -49,12 +49,11 @@ class GroupeCompetenceFixtures extends Fixture
                 $manager->persist($niveau);
                 $competence->addNiveauEvaluation($niveau);
                 }
-
                 $manager->persist($competence);
             }
 
             $groupeComp->addCompetence($competence);
-
+            dd($groupeComp);
             $manager->persist($groupeComp);
 
         }

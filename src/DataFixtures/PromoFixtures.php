@@ -29,7 +29,7 @@ class PromoFixtures extends Fixture
             
             $groupe = new Groupe();
 
-                $groupe->setNom("Groupe_Principal");
+                $groupe->setNom("Groupe_Principal".$i);
                 $groupe->setDateCreation(new \DateTime('now'));
                 $manager->persist($groupe);
 

@@ -52,15 +52,15 @@ class AdminController extends AbstractController
 
           /**
      * @Route(
-     *     path="/api/admin/admins",
+     *     path="/api/admin/admins/{id}",
      *     methods={"POST"}
      * )
      */
-    public function addAdmin(Request $request, ServiceAddUser $serviceAddUser)
+    public function updateAdmin(Request $request, ServiceAddUser $serviceAddUser)
     {
-        $user = $serviceAddUser->addUser($request, "App\Entity\Admin");
+        $user = $serviceAddUser->updateUser($request, "App\Entity\Admin");
 
-        return  $this->json("Un User Admin enrégistré avec succès");
+        return  $this->json("Un User Admin modifié avec succès");
         
 
     }
