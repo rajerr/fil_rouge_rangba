@@ -1,0 +1,22 @@
+-------------------- Auto-Git Log --------------------
+		Thu Dec 03 2020 12:27:15 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/Entity/Apprenant.php
+* src/Entity/Groupe.php
+* src/Entity/Promo.php
+* src/Entity/Referentiel.php
+
+
+Created files:
+* .autogit/logs/log-3-11-2020-11-27-3.txt
+* migrations/Version20201203113344.php
+* src/Controller/PromoController.php
+* templates/promo/index.html.twig
+
+
+Deleted files:
+
+
+Renamed files:
