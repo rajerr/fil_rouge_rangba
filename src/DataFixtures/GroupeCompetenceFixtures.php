@@ -47,9 +47,9 @@ class GroupeCompetenceFixtures extends Fixture
                     $niveau->setCritereEvaluaton($faker->text);
                     $niveau->setGroupeAction($faker->text);
                 $manager->persist($niveau);
+                $competence->addNiveauEvaluation($niveau);
                 }
 
-                $competence->addNiveauEvaluation($niveau);
                 $manager->persist($competence);
             }
 

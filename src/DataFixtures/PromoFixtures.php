@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use DateTime;
 use Faker\Factory;
 use App\Entity\Promo;
 use App\Entity\Groupe;
@@ -23,13 +24,13 @@ class PromoFixtures extends Fixture
             $promo->setLieu($faker->country);
             $promo->setReferenceAgate($faker->sentence);
             $promo->setChoixFabrique("Sonatel Academy");
-            $promo->setDateDebut($faker->datetime);
-            $promo->setDateFin($faker->datetime);
+            $promo->setDateDebut(new \DateTime('now'));
+            $promo->setDateFin(new \DateTime('2015-01-01'));
             
             $groupe = new Groupe();
 
                 $groupe->setNom("Groupe_Principal");
-                $groupe->setDateCreation($faker->date);
+                $groupe->setDateCreation(new \DateTime('now'));
                 $manager->persist($groupe);
 
             $promo->addGroupe($groupe);
