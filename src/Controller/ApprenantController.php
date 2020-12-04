@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\ServiceAddUser;
+use App\Repository\ProfileRepository;
 use App\Repository\ApprenantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,22 +17,18 @@ class ApprenantController extends AbstractController
      * @Route("/api/admin/apprenants/{id}", methods="PUT", name="update_apprenant")
      * 
      */
-    public function updateApprenant(int $id, Request $request, EntityManagerInterface $manager)
+    public function updateApprenant(int $id, Request $request)
     {
-        $content = $request->getContent();
-        $data = [];
-        $items = preg_split("/form-data; /", $content);
-        unset($items[0]);
-        foreach($items as $value){
-            $item = preg_split("/\r\n/", $value);
-            array_pop($item);
-            array_pop($item);
-            $key = explode('"', $item[0]);
-            $data[$key[1]] = end($item);
-        }
-        $this->manager->persist($content);
-        $this->manager->flush();
-        return $content;
+        $user = $serviceAddUser->updateUser($request, "App\Entity\Apprenant");
+
+        //Envoi de l'Email 
+        $message = (new \Swift_Message('Orange Digital Center'))
+            ->setFrom('rajerr2013@gmail.com')
+            ->setTo($user->getEmail())
+            ->setBody("mot de passe est ".$user->getPassword() ," et le username " . $user->getUsername());
+        $mailer->send($message);
+        
+        return  $this->json("Un apprenant enrégistré avec succès");
 
     }
 

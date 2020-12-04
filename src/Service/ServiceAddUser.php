@@ -83,28 +83,38 @@ class ServiceAddUser
 
         public function updateUser($request)
         {
-          //  $user = $request->request->all();
-            $user = json_decode($request->getContent(), true);
-            dd($user);
-            //avatar & error verification
-            $avatar = json_decode($request->files->get("avatar"));
-            //dd($avatar);
-            $avatar = $this->upload($avatar);
-            $user["avatar"] = $avatar;
-            //hash password
-            $password = json_decode($request->request->get("password"));
-            $user["password"] = $password;
-            //dd($password);
-            $user->setPassword($encoder->encodePassword($user, $password));
-            //dd($user);
-            $errors = $this->validator->validate($user);
+            $content = $request->getContent();
+            $data = [];
+            $items = preg_split("/form-data; /", $content);
+            unset($items[0]);
+            foreach($items as $value){
+                $item = preg_split("/\r\n/", $value);
+                array_pop($item);
+                array_pop($item);
+                $key = explode('"', $item[0]);
+                $data[$key[1]] = end($item);
+            }
+            // if(isset($data['profile'])){
+            //     $profile = $this->$profilerepos->find($data["profile"]);
+            //     if(!$profile){
+            //         return null;
+            //     }
+            //     dd($data["profile"]);
+            //     $data["profile"] = $profile;
+            // }
+            if(empty($data['avatar'])){
+                $stream = fopen('php/memory', 'r+');
+                fwrite($stream,$data["avatar"]);
+                rewind($stream);
+                $data["avatar"] = $avatar;
+            }
             if ($errors) {
                 $errors = $this->serializer->serialize($errors, "json");
                 return new JsonResponse($errors, Response::HTTP_BAD_REQUEST, [], true);
             }
-            $this->manager->persist($user);
+            dd($data);
+            $this->manager->persist($conr);
             $this->manager->flush();
-            fclose($avatar);
-            return $user;
+            return $data;
         }
 }
