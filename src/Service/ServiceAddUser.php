@@ -84,6 +84,7 @@ class ServiceAddUser
         public function updateUser($id, $request)
         {
             $user = $this->repos->find($id);
+            dd($user);
             $content = $request->getContent();
             $data = [];
             $items = preg_split("/form-data; /", $content);
