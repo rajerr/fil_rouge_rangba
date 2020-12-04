@@ -16,23 +16,22 @@ class ApprenantController extends AbstractController
      * @Route("/api/admin/apprenants/{id}", methods="PUT", name="update_apprenant")
      * 
      */
-    public function updateApprenant(int $id, Request $request)
+    public function updateApprenant(int $id, Request $request, EntityManagerInterface $manager)
     {
-        $data = $request->getContent();
-        $users = preg_split("/form-data/", $data);
-        dd($users);
-        unset($users[0]);
-        $dat = [];
-        foreach($users as $user){
-            $delSpace = preg_split("/\n\r/", $user);
-            dd($delSpace);
-            array_pop($delSpace);
-            array_pop($delSpace);
-            $a = explode('"', $delSpace[0]);
-            $data[$a[1]] = end($delSpace);
+        $content = $request->getContent();
+        $data = [];
+        $items = preg_split("/form-data; /", $content);
+        unset($items[0]);
+        foreach($items as $value){
+            $item = preg_split("/\r\n/", $value);
+            array_pop($item);
+            array_pop($item);
+            $key = explode('"', $item[0]);
+            $data[$key[1]] = end($item);
         }
-        dd($data); 
-
+        $this->manager->persist($content);
+        $this->manager->flush();
+        return $content;
 
     }
 

@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Fri Dec 04 2020 10:32:04 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/Controller/ApprenantController.php
+
+
+Created files:
+* .autogit/logs/log-4-11-2020-10-1-57.txt
+
+
+Deleted files:
+
+
+Renamed files:
