@@ -3,6 +3,7 @@
 namespace App\Service;
 
 
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use ApiPlatform\Core\Validator\ValidatorInterface;
@@ -17,7 +18,7 @@ class ServiceAddUser
     private $validator;
     private $manager;
 
-    public function __construct(UserPasswordEncoderInterface $encoder, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $manager)
+    public function __construct(UserPasswordEncoderInterface $encoder, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $manager, UserRepository $repos)
     {
         $this->encoder = $encoder;
         $this->serializer = $serializer;
@@ -81,8 +82,9 @@ class ServiceAddUser
 
 
 
-        public function updateUser($request)
+        public function updateUser($id, $request)
         {
+            $user = $this->repos->find($id);
             $content = $request->getContent();
             $data = [];
             $items = preg_split("/form-data; /", $content);
@@ -108,14 +110,14 @@ class ServiceAddUser
                 rewind($stream);
                 $data["avatar"] = $avatar;
             }
-           foreach($data as $key=>$value){
-               $method = 'set'.ucfirt($key);
-               if(method_exists($data, $method) && $key!='username'){
-                   $data->$method($value);
+           foreach($user as $key=>$value){
+               $method = 'set'.ucfirst($key);
+               if(method_exists($user, $method) && $key!='username'){
+                   $user->$method($value);
                }
            }
-           dd($data);
-            $this->manager->persist($data);
+           dd($user);
+            $this->manager->persist($user);
             $this->manager->flush();
             return $data;
         }
