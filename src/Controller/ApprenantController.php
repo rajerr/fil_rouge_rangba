@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Service\ServiceAddUser;
-use App\Repository\ProfileRepository;
 use App\Repository\ApprenantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +13,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ApprenantController extends AbstractController
 {
     /**
-     * @Route("/api/admin/apprenants/{id}", methods="PUT", name="update_apprenant")
+     * @Route("/api/admin/apprenants/{id}", 
+     * methods="PUT", 
+     * name="update_apprenant")
      * 
      */
     public function updateApprenant(int $id, Request $request, ServiceAddUser $serviceAddUser)

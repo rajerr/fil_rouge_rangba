@@ -17,6 +17,10 @@ class ServiceAddUser
     private $validator;
     private $manager;
 
+
+    public function __toString() {
+        return $this->username;
+    }
     public function __construct(UserPasswordEncoderInterface $encoder, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $manager)
     {
         $this->encoder = $encoder;
