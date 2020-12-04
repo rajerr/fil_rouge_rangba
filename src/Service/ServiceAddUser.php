@@ -108,12 +108,13 @@ class ServiceAddUser
                 rewind($stream);
                 $data["avatar"] = $avatar;
             }
+            $errors = $this->validator->validate($data);
             if ($errors) {
                 $errors = $this->serializer->serialize($errors, "json");
                 return new JsonResponse($errors, Response::HTTP_BAD_REQUEST, [], true);
             }
-            dd($data);
-            $this->manager->persist($conr);
+
+            $this->manager->persist($data);
             $this->manager->flush();
             return $data;
         }

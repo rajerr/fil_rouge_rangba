@@ -17,17 +17,9 @@ class ApprenantController extends AbstractController
      * @Route("/api/admin/apprenants/{id}", methods="PUT", name="update_apprenant")
      * 
      */
-    public function updateApprenant(int $id, Request $request)
+    public function updateApprenant(int $id, Request $request, ServiceAddUser $serviceAddUser)
     {
-        $user = $serviceAddUser->updateUser($request, "App\Entity\Apprenant");
-
-        //Envoi de l'Email 
-        $message = (new \Swift_Message('Orange Digital Center'))
-            ->setFrom('rajerr2013@gmail.com')
-            ->setTo($user->getEmail())
-            ->setBody("mot de passe est ".$user->getPassword() ," et le username " . $user->getUsername());
-        $mailer->send($message);
-        
+        $user = $serviceAddUser->updateUser($request);
         return  $this->json("Un apprenant enrégistré avec succès");
 
     }
