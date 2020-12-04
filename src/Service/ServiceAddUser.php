@@ -3,7 +3,6 @@
 namespace App\Service;
 
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use ApiPlatform\Core\Validator\ValidatorInterface;
@@ -18,7 +17,7 @@ class ServiceAddUser
     private $validator;
     private $manager;
 
-    public function __construct(UserPasswordEncoderInterface $encoder, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $manager, UserRepository $repos)
+    public function __construct(UserPasswordEncoderInterface $encoder, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $manager)
     {
         $this->encoder = $encoder;
         $this->serializer = $serializer;

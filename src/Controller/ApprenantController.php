@@ -19,7 +19,7 @@ class ApprenantController extends AbstractController
      */
     public function updateApprenant(int $id, Request $request, ServiceAddUser $serviceAddUser)
     {
-        $user = $serviceAddUser->updateUser($id, $request);
+        $user = $this->$serviceAddUser->updateUser($id, $request);
         return  $this->json("Un apprenant enrégistré avec succès");
 
     }
