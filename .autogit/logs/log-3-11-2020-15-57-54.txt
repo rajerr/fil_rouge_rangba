@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Thu Dec 03 2020 15:57:54 GMT+0000 (heure moyenne de Greenwich)
+------------------------------------------------------
+
+Modified files:
+* src/Controller/PromoController.php
+* src/Entity/Promo.php
+
+
+Created files:
+* .autogit/logs/log-3-11-2020-15-27-49.txt
+
+
+Deleted files:
+
+
+Renamed files:

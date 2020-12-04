@@ -24,11 +24,12 @@ class ApprenantController extends AbstractController
         $dat = [];
         foreach($users as $user){
             $delSpace = preg_split("/\n\r/", $user);
+            dd($delSpace);
             array_pop($delSpace);
             array_pop($delSpace);
-
-            //$a = \preg_split("//", $delSpace);
-            dd($delSpace); 
+            $a = explode('"', $delSpace[0]);
+            $data[$a[1]] = end($delSpace);
+            dd($a); 
         }
 
 
