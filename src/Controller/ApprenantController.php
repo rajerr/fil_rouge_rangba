@@ -20,6 +20,7 @@ class ApprenantController extends AbstractController
     {
         $data = $request->getContent();
         $users = preg_split("/form-data/", $data);
+        dd($users);
         unset($users[0]);
         $dat = [];
         foreach($users as $user){
