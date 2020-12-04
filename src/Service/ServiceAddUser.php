@@ -114,6 +114,7 @@ class ServiceAddUser
                    $data->$method($value);
                }
            }
+           dd($data);
             $this->manager->persist($data);
             $this->manager->flush();
             return $data;
