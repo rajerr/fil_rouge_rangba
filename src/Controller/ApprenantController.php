@@ -29,8 +29,8 @@ class ApprenantController extends AbstractController
             array_pop($delSpace);
             $a = explode('"', $delSpace[0]);
             $data[$a[1]] = end($delSpace);
-            dd($a); 
         }
+        dd($data); 
 
 
     }
